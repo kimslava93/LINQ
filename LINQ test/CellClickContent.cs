@@ -76,7 +76,7 @@ namespace LINQ_test
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            AddNewClient anc = new AddNewClient();
+            AddNewClient anc = new AddNewClient(int.Parse(dataToWorkWith[0]));
             anc.ShowDialog();
         }
 

@@ -42,7 +42,6 @@
             this.radioButtonTimeOut = new System.Windows.Forms.RadioButton();
             this.radioButtonPaidSum = new System.Windows.Forms.RadioButton();
             this.paid_price_numeric_up_down = new System.Windows.Forms.NumericUpDown();
-            this.client_TIME_out_field = new System.Windows.Forms.DateTimePicker();
             this.current_time_timer = new System.Windows.Forms.Timer(this.components);
             this.combo_box_client_discount_card = new System.Windows.Forms.ComboBox();
             this.current_time_label = new System.Windows.Forms.Label();
@@ -50,7 +49,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.add_client_button = new System.Windows.Forms.Button();
             this.deposit_payment_groupBox = new System.Windows.Forms.GroupBox();
-            this.client_DATE_out_field = new System.Windows.Forms.DateTimePicker();
+            this.numericUpDownMinutesLeft = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownHoursLeft = new System.Windows.Forms.NumericUpDown();
             this.OR_text_label = new System.Windows.Forms.Label();
             this.client_time_out_label = new System.Windows.Forms.Label();
             this.table_numComboBox = new System.Windows.Forms.ComboBox();
@@ -59,6 +59,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.add_money_on_card_numericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.paid_price_numeric_up_down)).BeginInit();
             this.deposit_payment_groupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinutesLeft)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHoursLeft)).BeginInit();
             this.SuspendLayout();
             // 
             // client_info_group_box
@@ -203,18 +205,6 @@
             this.paid_price_numeric_up_down.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.paid_price_numeric_up_down_KeyPress);
             this.paid_price_numeric_up_down.KeyUp += new System.Windows.Forms.KeyEventHandler(this.paid_price_numeric_up_down_KeyUp);
             // 
-            // client_TIME_out_field
-            // 
-            this.client_TIME_out_field.CustomFormat = "HH:mm";
-            this.client_TIME_out_field.Enabled = false;
-            this.client_TIME_out_field.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.client_TIME_out_field.Location = new System.Drawing.Point(230, 89);
-            this.client_TIME_out_field.Name = "client_TIME_out_field";
-            this.client_TIME_out_field.ShowUpDown = true;
-            this.client_TIME_out_field.Size = new System.Drawing.Size(58, 20);
-            this.client_TIME_out_field.TabIndex = 4;
-            this.client_TIME_out_field.ValueChanged += new System.EventHandler(this.client_TIME_out_field_ValueChanged);
-            // 
             // current_time_timer
             // 
             this.current_time_timer.Enabled = true;
@@ -269,14 +259,15 @@
             this.add_client_button.TabIndex = 13;
             this.add_client_button.Text = "Add new client";
             this.add_client_button.UseVisualStyleBackColor = true;
+            this.add_client_button.Click += new System.EventHandler(this.add_client_button_Click);
             // 
             // deposit_payment_groupBox
             // 
+            this.deposit_payment_groupBox.Controls.Add(this.numericUpDownMinutesLeft);
+            this.deposit_payment_groupBox.Controls.Add(this.numericUpDownHoursLeft);
             this.deposit_payment_groupBox.Controls.Add(this.radioButtonTimeOut);
             this.deposit_payment_groupBox.Controls.Add(this.radioButtonPaidSum);
             this.deposit_payment_groupBox.Controls.Add(this.paid_price_numeric_up_down);
-            this.deposit_payment_groupBox.Controls.Add(this.client_TIME_out_field);
-            this.deposit_payment_groupBox.Controls.Add(this.client_DATE_out_field);
             this.deposit_payment_groupBox.Controls.Add(this.OR_text_label);
             this.deposit_payment_groupBox.Controls.Add(this.paid_sum_label);
             this.deposit_payment_groupBox.Controls.Add(this.client_time_out_label);
@@ -287,15 +278,31 @@
             this.deposit_payment_groupBox.TabStop = false;
             this.deposit_payment_groupBox.Text = "Deposit payment";
             // 
-            // client_DATE_out_field
+            // numericUpDownMinutesLeft
             // 
-            this.client_DATE_out_field.CustomFormat = "dd/MMM/yy";
-            this.client_DATE_out_field.Enabled = false;
-            this.client_DATE_out_field.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.client_DATE_out_field.Location = new System.Drawing.Point(138, 89);
-            this.client_DATE_out_field.Name = "client_DATE_out_field";
-            this.client_DATE_out_field.Size = new System.Drawing.Size(86, 20);
-            this.client_DATE_out_field.TabIndex = 6;
+            this.numericUpDownMinutesLeft.Location = new System.Drawing.Point(208, 91);
+            this.numericUpDownMinutesLeft.Maximum = new decimal(new int[] {
+            80,
+            0,
+            0,
+            0});
+            this.numericUpDownMinutesLeft.Name = "numericUpDownMinutesLeft";
+            this.numericUpDownMinutesLeft.Size = new System.Drawing.Size(43, 20);
+            this.numericUpDownMinutesLeft.TabIndex = 6;
+            this.numericUpDownMinutesLeft.ValueChanged += new System.EventHandler(this.numericUpDownMinutesLeft_ValueChanged);
+            // 
+            // numericUpDownHoursLeft
+            // 
+            this.numericUpDownHoursLeft.Location = new System.Drawing.Point(157, 91);
+            this.numericUpDownHoursLeft.Maximum = new decimal(new int[] {
+            48,
+            0,
+            0,
+            0});
+            this.numericUpDownHoursLeft.Name = "numericUpDownHoursLeft";
+            this.numericUpDownHoursLeft.Size = new System.Drawing.Size(45, 20);
+            this.numericUpDownHoursLeft.TabIndex = 5;
+            this.numericUpDownHoursLeft.ValueChanged += new System.EventHandler(this.numericUpDownHoursLeft_ValueChanged);
             // 
             // OR_text_label
             // 
@@ -356,6 +363,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.paid_price_numeric_up_down)).EndInit();
             this.deposit_payment_groupBox.ResumeLayout(false);
             this.deposit_payment_groupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinutesLeft)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHoursLeft)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -376,7 +385,6 @@
         private System.Windows.Forms.RadioButton radioButtonTimeOut;
         private System.Windows.Forms.RadioButton radioButtonPaidSum;
         private System.Windows.Forms.NumericUpDown paid_price_numeric_up_down;
-        private System.Windows.Forms.DateTimePicker client_TIME_out_field;
         private System.Windows.Forms.Timer current_time_timer;
         private System.Windows.Forms.ComboBox combo_box_client_discount_card;
         private System.Windows.Forms.Label current_time_label;
@@ -384,10 +392,12 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button add_client_button;
         private System.Windows.Forms.GroupBox deposit_payment_groupBox;
-        private System.Windows.Forms.DateTimePicker client_DATE_out_field;
         private System.Windows.Forms.Label OR_text_label;
         private System.Windows.Forms.Label client_time_out_label;
         private System.Windows.Forms.ComboBox table_numComboBox;
         private System.Windows.Forms.Label table_num_label;
+        private System.Windows.Forms.NumericUpDown numericUpDownMinutesLeft;
+        private System.Windows.Forms.NumericUpDown numericUpDownHoursLeft;
+        private dbDataContext db;
     }
 }

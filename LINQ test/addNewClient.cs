@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Linq;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
@@ -9,16 +10,19 @@ namespace LINQ_test
     {
         private bool _opTable = false;
         private bool _opClients = false;
-        private Options opt;
+        private Options _opt;
         private dbDataContext _db;
-        public AddNewClient()
+        private readonly int _dailyId;
+        public AddNewClient(int dayId)
         {
+            _dailyId = dayId;
             InitializeComponent();
         }
 
         private void addNewClient_Load(object sender, EventArgs e)
         {
-            opt = new Options();
+            db = new dbDataContext();
+            _opt = new Options();
             _db = new dbDataContext();
             StartTimer();
             OpenTables();
@@ -153,8 +157,8 @@ namespace LINQ_test
             if (radioButtonTimeOut.Checked == true)
             {
                 radioButtonTimeOut.Checked = true;
-                client_DATE_out_field.Enabled = true;
-                client_TIME_out_field.Enabled = true;
+                numericUpDownHoursLeft.Enabled = true;
+                numericUpDownMinutesLeft.Enabled = true;
                 client_time_out_label.Enabled = true;
 
                 paid_price_numeric_up_down.Enabled = false;
@@ -163,13 +167,15 @@ namespace LINQ_test
             else
             {
                 radioButtonTimeOut.Checked = false;
-                client_DATE_out_field.Enabled = false;
-                client_TIME_out_field.Enabled = false;
+                numericUpDownHoursLeft.Enabled = false;
+                numericUpDownMinutesLeft.Enabled = false;
                 client_time_out_label.Enabled = false;
 
                 paid_price_numeric_up_down.Enabled = true;
                 paid_sum_label.Enabled = true;
             }
+            numericUpDownHoursLeft.Value = 0;
+            numericUpDownMinutesLeft.Value = 0;
         }
 
         private void radioButtonPaidSum_CheckedChanged(object sender, EventArgs e)
@@ -177,8 +183,8 @@ namespace LINQ_test
             if (radioButtonPaidSum.Checked == true)
             {
                 radioButtonTimeOut.Checked = false;
-                client_DATE_out_field.Enabled = false;
-                client_TIME_out_field.Enabled = false;
+                numericUpDownHoursLeft.Enabled = false;
+                numericUpDownMinutesLeft.Enabled = false;
                 client_time_out_label.Enabled = false;
 
                 paid_price_numeric_up_down.Enabled = true;
@@ -187,13 +193,15 @@ namespace LINQ_test
             else
             {
                 radioButtonTimeOut.Checked = true;
-                client_DATE_out_field.Enabled = true;
-                client_TIME_out_field.Enabled = true;
+                numericUpDownHoursLeft.Enabled = true;
+                numericUpDownMinutesLeft.Enabled = true;
                 client_time_out_label.Enabled = true;
 
                 paid_price_numeric_up_down.Enabled = false;
                 paid_sum_label.Enabled = false;
             }
+            numericUpDownHoursLeft.Value = 0;
+            numericUpDownMinutesLeft.Value = 0;
         }
 
         private void paid_price_numeric_up_down_ValueChanged(object sender, EventArgs e)
@@ -209,9 +217,16 @@ namespace LINQ_test
                 double paidTime = 0;
                 try
                 {
-                    paidTime = (double)paid_price_numeric_up_down.Value / (opt.GetCurrentPriceFor(table_numComboBox.Text) / 60);
-                    client_TIME_out_field.Value = System.DateTime.Now.AddMinutes(Math.Round(paidTime));
-                    client_DATE_out_field.Value = System.DateTime.Now.AddMinutes(Math.Round(paidTime));
+                    paidTime = (double)paid_price_numeric_up_down.Value / (_opt.GetCurrentPriceFor(table_numComboBox.Text)/60);
+                    numericUpDownHoursLeft.Value = (int)paidTime / 60;
+                    if (paidTime >= 60)
+                    {
+                        numericUpDownMinutesLeft.Value = (int)paidTime%60;
+                    }
+                    else
+                    {
+                        numericUpDownMinutesLeft.Value = (int)paidTime;
+                    }
                 }
                 catch (FormatException)
                 {
@@ -223,20 +238,17 @@ namespace LINQ_test
         private void client_TIME_out_field_ValueChanged(object sender, EventArgs e)
         {
             DateTime currentDateTime = DateTime.Now;
-            if (DateTime.Parse(client_DATE_out_field.Value.ToString("dd.MM.yyyy") + " " + client_TIME_out_field.Value.ToString("HH:mm")) <
-                                DateTime.Parse(currentDateTime.ToString("dd.MM.yyyy HH:mm")))
+            if (numericUpDownHoursLeft.Value <0 || numericUpDownMinutesLeft.Value < 0)
             {
-                client_TIME_out_field.Text = currentDateTime.ToString("HH:mm");
+                numericUpDownHoursLeft.Value = 0;
+                numericUpDownMinutesLeft.Value = 0;
             }
             if (radioButtonTimeOut.Checked == true)
             {
-                if ((client_DATE_out_field.Value.ToString("dd.MM.yyyy") + client_TIME_out_field.Value.ToString("HH:mm") != DateTime.Now.ToString("dd.MM.yyyy HH:mm")))
+                if (numericUpDownHoursLeft.Value != 0 || numericUpDownMinutesLeft.Value != 0)
                 {
-                    TimeSpan days_span = DateTime.Parse(client_DATE_out_field.Value.ToString("dd.MM.yyyy") +
-                                                    " " + client_TIME_out_field.Value.ToString("HH:mm")).Subtract(currentDateTime);
-                    double minutes = days_span.TotalMinutes;
-                    client_DATE_out_field.Value.AddMinutes(minutes);
-                    double price = minutes * opt.GetCurrentPriceFor(table_numComboBox.Text) / 60;
+                    int minutes = (int)((numericUpDownHoursLeft.Value*60) + numericUpDownMinutesLeft.Value);
+                    double price = minutes * _opt.GetCurrentPriceFor(table_numComboBox.Text) / 60;
                     if (price < 0)
                     {
                         paid_price_numeric_up_down.Value = 0;
@@ -249,7 +261,104 @@ namespace LINQ_test
                     {
                         paid_price_numeric_up_down.Value = Math.Round((decimal)price, 2);
                     }
+                }
+            }
+        }
+        private void GetDailySession()
+        {
+            var q = from days in db.GetTable<days_sessions_t>()
+                    from account in db.GetTable<session_accounting_t>()
+                    from discount in db.GetTable<discounts_t>()
+                    where days.daily_id == _dailyId
+                    orderby days.client_num ascending
+                    select new
+                    {
+                        days.client_num,
+                        days.playstation_id,
+                        days.start_game,
+                        days.end_game,
+                        days.client_id,
+                        discount.discountSize,
+                        account.played_money,
+                        account.payed_sum
+                    };
+        }
 
+        private void add_client_button_Click(object sender, EventArgs e)
+        {
+             var q = (from days in db.GetTable<days_sessions_t>()
+                    from account in db.GetTable<session_accounting_t>()
+                    from discount in db.GetTable<discounts_t>()
+                    where days.daily_id == _dailyId
+                    orderby days.client_num ascending
+                    select new
+                    {
+                        days.client_num,
+                        days.playstation_id,
+                        days.start_game,
+                        days.end_game,
+                        days.client_id,
+                        discount.discountSize,
+                        account.played_money,
+                        account.payed_sum
+                    }).ToList();
+            if (table_numComboBox.Text != "" || table_numComboBox.Text != null)
+            {
+                if (combo_box_client_discount_card.Text == "0")
+                {
+                    Table<days_sessions_t> daysT = db.GetTable<days_sessions_t>();
+                    days_sessions_t daysSessionT = new days_sessions_t();
+                    daysSessionT.client_num = q[q.Count - 1].client_num;
+                    daysSessionT.playstation_id = table_numComboBox.Text;
+                    daysSessionT.start_game = TimeSpan.Parse(DateTime.Now.TimeOfDay.ToString("HH:mm:00"));
+//                    daysSessionT.end_game = 
+
+
+
+                }
+            }
+        }
+
+        private void numericUpDownHoursLeft_ValueChanged(object sender, EventArgs e)
+        {
+           setPrice();
+        }
+
+        private void numericUpDownMinutesLeft_ValueChanged(object sender, EventArgs e)
+        {
+            setPrice();
+        }
+
+        private void setPrice()
+        {
+
+            if (numericUpDownHoursLeft.Value < 0 || numericUpDownMinutesLeft.Value < 0)
+            {
+                numericUpDownHoursLeft.Value = 0;
+                numericUpDownMinutesLeft.Value = 0;
+            }
+            else if (numericUpDownHoursLeft.Value < 0 || numericUpDownMinutesLeft.Value < 0)
+            {
+                paid_price_numeric_up_down.Value = 0;
+            }
+            if (radioButtonTimeOut.Checked == true)
+            {
+                if (numericUpDownHoursLeft.Value >= 0 || numericUpDownMinutesLeft.Value >= 0)
+                {
+                    int minutes = (int)((numericUpDownHoursLeft.Value * 60) + numericUpDownMinutesLeft.Value);
+                    double price = minutes * _opt.GetCurrentPriceFor(table_numComboBox.Text) / 60;
+                    if (price < 0)
+                    {
+                        paid_price_numeric_up_down.Value = 0;
+                    }
+                    else if ((decimal)price < paid_price_numeric_up_down.Minimum && (decimal)price > paid_price_numeric_up_down.Maximum)
+                    {
+                        MessageBox.Show("Price is lower than 0 or higher than 30 000 \nIt is very high price please check entered data");
+                    }
+                    else
+                    {
+                        paid_price_numeric_up_down.Value = Math.Round((decimal)price, 2);
+                    }
                 }
             }
         }
