@@ -264,31 +264,17 @@ namespace LINQ_test
                 }
             }
         }
-        private void GetDailySession()
+        private void GetCurrentDiscount()
         {
-            var q = from days in db.GetTable<days_sessions_t>()
-                    from account in db.GetTable<session_accounting_t>()
-                    from discount in db.GetTable<discounts_t>()
-                    where days.daily_id == _dailyId
-                    orderby days.client_num ascending
-                    select new
-                    {
-                        days.client_num,
-                        days.playstation_id,
-                        days.start_game,
-                        days.end_game,
-                        days.client_id,
-                        discount.discountSize,
-                        account.played_money,
-                        account.payed_sum
-                    };
+
         }
 
         private void add_client_button_Click(object sender, EventArgs e)
         {
+            DateTime currentTime = DateTime.Parse(DateTime.Now.TimeOfDay.ToString("HH:mm:00"));
+            TimeSpan ct = TimeSpan.Parse(DateTime.Now.TimeOfDay.ToString("HH:mm:00"));
              var q = (from days in db.GetTable<days_sessions_t>()
                     from account in db.GetTable<session_accounting_t>()
-                    from discount in db.GetTable<discounts_t>()
                     where days.daily_id == _dailyId
                     orderby days.client_num ascending
                     select new
@@ -298,7 +284,6 @@ namespace LINQ_test
                         days.start_game,
                         days.end_game,
                         days.client_id,
-                        discount.discountSize,
                         account.played_money,
                         account.payed_sum
                     }).ToList();
@@ -306,15 +291,24 @@ namespace LINQ_test
             {
                 if (combo_box_client_discount_card.Text == "0")
                 {
+                    TimeSpan toAdd = TimeSpan.FromMinutes((double)((numericUpDownHoursLeft.Value*60) + numericUpDownMinutesLeft.Value));
                     Table<days_sessions_t> daysT = db.GetTable<days_sessions_t>();
                     days_sessions_t daysSessionT = new days_sessions_t();
+
                     daysSessionT.client_num = q[q.Count - 1].client_num;
                     daysSessionT.playstation_id = table_numComboBox.Text;
-                    daysSessionT.start_game = TimeSpan.Parse(DateTime.Now.TimeOfDay.ToString("HH:mm:00"));
-//                    daysSessionT.end_game = 
+                    daysSessionT.start_game = currentTime.TimeOfDay;
+                    daysSessionT.end_game = ct.Add(toAdd);
+                    daysSessionT.client_id = combo_box_client_discount_card.Text;
+                    daysT.InsertOnSubmit(daysSessionT);
+                    db.SubmitChanges();
 
 
-
+                    Table<session_accounting_t> sessAccount = db.GetTable<session_accounting_t>();
+                    session_accounting_t sessionAccountingT = new session_accounting_t();
+                    sessionAccountingT.played_money = 0;
+                    sessionAccountingT.payed_sum = (double)(paid_price_numeric_up_down.Value);
+                    sessionAccountingT.session_discount = 0;
                 }
             }
         }
@@ -361,6 +355,11 @@ namespace LINQ_test
                     }
                 }
             }
+        }
+
+        private void add_payment_button_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -15,20 +15,6 @@
       <Association Name="timezones_t_playstation_timezone" Member="playstation_timezones" ThisKey="timezone_name" OtherKey="timezone_name" Type="playstation_timezone" />
     </Type>
   </Table>
-  <Table Name="dbo.client_info_t" Member="client_info_ts">
-    <Type Name="client_info_t">
-      <Column Name="client_id" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="birthday" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="phone" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="activation_date" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
-      <Column Name="played_sum" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
-      <Association Name="client_info_t_account_savings_t" Member="account_savings_ts" ThisKey="client_id" OtherKey="client_id" Type="account_savings_t" />
-      <Association Name="client_info_t_days_sessions_t" Member="days_sessions_ts" ThisKey="client_id" OtherKey="client_id" Type="days_sessions_t" />
-      <Association Name="client_info_t_payments_t" Member="payments_ts" ThisKey="client_id" OtherKey="client_id" Type="payments_t" />
-    </Type>
-  </Table>
   <Table Name="dbo.days_sessions_t" Member="days_sessions_ts">
     <Type Name="days_sessions_t">
       <Column Name="daily_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
@@ -39,9 +25,9 @@
       <Column Name="playstation_id" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
       <Column Name="client_id" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
       <Association Name="days_sessions_t_session_accounting_t" Member="session_accounting_ts" ThisKey="session_id" OtherKey="session_id" Type="session_accounting_t" />
-      <Association Name="client_info_t_days_sessions_t" Member="client_info_t" ThisKey="client_id" OtherKey="client_id" Type="client_info_t" IsForeignKey="true" />
       <Association Name="global_session_t_days_sessions_t" Member="global_session_t" ThisKey="daily_id" OtherKey="daily_id" Type="global_session_t" IsForeignKey="true" />
       <Association Name="tables_t_days_sessions_t" Member="tables_t" ThisKey="playstation_id" OtherKey="playstation_id" Type="tables_t" IsForeignKey="true" />
+      <Association Name="client_info_t_days_sessions_t" Member="client_info_t" ThisKey="client_id" OtherKey="client_id" Type="client_info_t" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.discounts_t" Member="discounts_ts">
@@ -100,15 +86,6 @@
       <Association Name="tables_t_playstation_timezone" Member="tables_t" ThisKey="playstation_id" OtherKey="playstation_id" Type="tables_t" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.session_accounting_t" Member="session_accounting_ts">
-    <Type Name="session_accounting_t">
-      <Column Name="session_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="payed_sum" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
-      <Column Name="played_money" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
-      <Column Name="comments" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
-      <Association Name="days_sessions_t_session_accounting_t" Member="days_sessions_t" ThisKey="session_id" OtherKey="session_id" Type="days_sessions_t" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.tables_t" Member="tables_ts">
     <Type Name="tables_t">
       <Column Name="playstation_id" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -116,6 +93,31 @@
       <Column Name="order_time" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
       <Association Name="tables_t_days_sessions_t" Member="days_sessions_ts" ThisKey="playstation_id" OtherKey="playstation_id" Type="days_sessions_t" />
       <Association Name="tables_t_playstation_timezone" Member="playstation_timezones" ThisKey="playstation_id" OtherKey="playstation_id" Type="playstation_timezone" />
+    </Type>
+  </Table>
+  <Table Name="dbo.client_info_t" Member="client_info_ts">
+    <Type Name="client_info_t">
+      <Column Name="client_id" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="birthday" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="phone" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="activation_date" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="pers_discount" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="played_sum" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Association Name="client_info_t_account_savings_t" Member="account_savings_ts" ThisKey="client_id" OtherKey="client_id" Type="account_savings_t" />
+      <Association Name="client_info_t_days_sessions_t" Member="days_sessions_ts" ThisKey="client_id" OtherKey="client_id" Type="days_sessions_t" />
+      <Association Name="client_info_t_payments_t" Member="payments_ts" ThisKey="client_id" OtherKey="client_id" Type="payments_t" />
+    </Type>
+  </Table>
+  <Table Name="dbo.session_accounting_t" Member="session_accounting_ts">
+    <Type Name="session_accounting_t">
+      <Column Name="session_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="payed_sum" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="played_money" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="comments" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="session_discount" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Association Name="days_sessions_t_session_accounting_t" Member="days_sessions_t" ThisKey="session_id" OtherKey="session_id" Type="days_sessions_t" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

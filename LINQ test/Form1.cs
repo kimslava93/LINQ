@@ -175,6 +175,12 @@ namespace LINQ_test
             GetMainTable();
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            DiscountRedactor dr = new DiscountRedactor();
+            dr.ShowDialog();
+        }
+
         
         
     }

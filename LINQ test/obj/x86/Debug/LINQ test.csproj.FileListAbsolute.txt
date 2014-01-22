@@ -26,3 +26,4 @@ D:\My Files\Dropbox\project diploma\Diploma\LINQ-master\LINQ test\bin\Debug\LINQ
 D:\My Files\Dropbox\project diploma\Diploma\LINQ-master\LINQ test\bin\Debug\LINQ test.pdb
 D:\My Files\Dropbox\project diploma\Diploma\LINQ-master\LINQ test\obj\x86\Debug\LINQ_test.Properties.Resources.resources
 D:\My Files\Dropbox\project diploma\Diploma\LINQ-master\LINQ test\obj\x86\Debug\LINQ_test.AddNewClient.resources
+D:\My Files\Dropbox\project diploma\Diploma\LINQ-master\LINQ test\obj\x86\Debug\LINQ_test.DiscountRedactor.resources

@@ -109,6 +109,7 @@
             this.add_payment_button.TabIndex = 7;
             this.add_payment_button.Text = ">";
             this.add_payment_button.UseVisualStyleBackColor = true;
+            this.add_payment_button.Click += new System.EventHandler(this.add_payment_button_Click);
             // 
             // add_money_on_card_numericUpDown
             // 
