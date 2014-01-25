@@ -30,16 +30,6 @@
       <Association Name="client_info_t_days_sessions_t" Member="client_info_t" ThisKey="client_id" OtherKey="client_id" Type="client_info_t" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.discounts_t" Member="discounts_ts">
-    <Type Name="discounts_t">
-      <Column Name="startDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="endDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="discountSize" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
-      <Column Name="discount_reason" Type="System.String" DbType="VarChar(1) NOT NULL" CanBeNull="false" />
-      <Column Name="discount_timezones" Type="System.String" DbType="VarChar(1) NOT NULL" CanBeNull="false" />
-      <Column Name="discount_playstation_ids" Type="System.String" DbType="VarChar(1) NOT NULL" CanBeNull="false" />
-    </Type>
-  </Table>
   <Table Name="dbo.global_session_t" Member="global_session_ts">
     <Type Name="global_session_t">
       <Column Name="daily_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -118,6 +108,18 @@
       <Column Name="comments" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="session_discount" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Association Name="days_sessions_t_session_accounting_t" Member="days_sessions_t" ThisKey="session_id" OtherKey="session_id" Type="days_sessions_t" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.discounts_t" Member="discounts_ts">
+    <Type Name="discounts_t">
+      <Column Name="startDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="endDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="discountSize" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="discount_reason" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="discount_timezones" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="discount_playstation_ids" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="discount_id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="bonus_hours" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

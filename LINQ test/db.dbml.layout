@@ -20,12 +20,6 @@
         <elementListCompartment Id="21253aed-9287-4c78-9914-1c1d6efc1c2a" absoluteBounds="6.7650000000000006, 6.46, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="dbde1096-09db-417b-8c78-2ba2b8da36e2" absoluteBounds="9.875, 0.5, 2, 1.9631982421875005">
-      <DataClassMoniker Name="/dbDataContext/discounts_t" />
-      <nestedChildShapes>
-        <elementListCompartment Id="630b3f1c-f1a8-4d99-8a5f-5080ead5a998" absoluteBounds="9.89, 0.96000000000000085, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
     <classShape Id="38e3cfad-6416-4409-8928-8999623d55a9" absoluteBounds="6.625, 3.75, 2, 1.7708968098958344">
       <DataClassMoniker Name="/dbDataContext/global_session_t" />
       <nestedChildShapes>
@@ -118,7 +112,7 @@
         <classShapeMoniker Id="92440545-16d1-4cbe-990e-9a8b74b4fee5" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(11.5 : 5.17390055338542); (12 : 5.17390055338542)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(11.5 : 5.17390055338542); (12 : 5.17390055338542)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/dbDataContext/client_info_t/client_info_t_payments_t" />
       <nodes>
         <classShapeMoniker Id="f0c7a9f4-cee3-4ccc-bbbf-aeb76aacee40" />
@@ -131,12 +125,18 @@
         <elementListCompartment Id="a24f82c6-627c-48ab-b4f9-4d0447caea7e" absoluteBounds="9.765, 6.835, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(8.75 : 7.26044840494792); (9.75 : 7.26044840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(8.75 : 7.26044840494792); (9.75 : 7.26044840494792)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/dbDataContext/days_sessions_t/days_sessions_t_session_accounting_t" />
       <nodes>
         <classShapeMoniker Id="92440545-16d1-4cbe-990e-9a8b74b4fee5" />
         <classShapeMoniker Id="5e74e355-c33a-4461-ae8c-d12226bb5981" />
       </nodes>
     </associationConnector>
+    <classShape Id="afefa9c2-2016-40a7-a854-281e30684eb5" absoluteBounds="9.625, 0.625, 2, 2.3478011067708335">
+      <DataClassMoniker Name="/dbDataContext/discounts_t" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b0214919-cc4a-4c6e-87f4-5e75bae41906" absoluteBounds="9.64, 1.085, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>
