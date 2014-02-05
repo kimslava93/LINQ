@@ -28,3 +28,5 @@ D:\My Files\Dropbox\project diploma\Diploma\LINQ-master\LINQ test\obj\x86\Debug\
 D:\My Files\Dropbox\project diploma\Diploma\LINQ-master\LINQ test\obj\x86\Debug\LINQ_test.AddNewClient.resources
 D:\My Files\Dropbox\project diploma\Diploma\LINQ-master\LINQ test\obj\x86\Debug\LINQ_test.DiscountRedactor.resources
 D:\My Files\Dropbox\project diploma\Diploma\LINQ-master\LINQ test\obj\x86\Debug\LINQ_test.AddRemoveFromDiscountForm.resources
+D:\My Files\Dropbox\project diploma\Diploma\LINQ-master\LINQ test\obj\x86\Debug\LINQ_test.AddNewDiscountForm.resources
+D:\My Files\Dropbox\project diploma\Diploma\LINQ-master\LINQ test\obj\x86\Debug\LINQ_test.ClosingSessionDialog.resources

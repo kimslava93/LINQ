@@ -136,6 +136,7 @@
             this.MinimizeBox = false;
             this.Name = "AddRemoveFromDiscountForm";
             this.Text = "AddRemoveFromDiscountForm";
+            this.TopMost = true;
             this.Load += new System.EventHandler(this.AddRemoveFromDiscountForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

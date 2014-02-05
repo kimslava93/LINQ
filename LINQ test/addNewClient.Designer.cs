@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddNewClient));
             this.client_info_group_box = new System.Windows.Forms.GroupBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -192,7 +193,6 @@
             // 
             // paid_price_numeric_up_down
             // 
-            this.paid_price_numeric_up_down.DecimalPlaces = 2;
             this.paid_price_numeric_up_down.Location = new System.Drawing.Point(138, 27);
             this.paid_price_numeric_up_down.Maximum = new decimal(new int[] {
             30000,
@@ -281,9 +281,10 @@
             // 
             // numericUpDownMinutesLeft
             // 
+            this.numericUpDownMinutesLeft.Enabled = false;
             this.numericUpDownMinutesLeft.Location = new System.Drawing.Point(208, 91);
             this.numericUpDownMinutesLeft.Maximum = new decimal(new int[] {
-            80,
+            60,
             0,
             0,
             0});
@@ -294,6 +295,7 @@
             // 
             // numericUpDownHoursLeft
             // 
+            this.numericUpDownHoursLeft.Enabled = false;
             this.numericUpDownHoursLeft.Location = new System.Drawing.Point(157, 91);
             this.numericUpDownHoursLeft.Maximum = new decimal(new int[] {
             48,
@@ -355,7 +357,12 @@
             this.Controls.Add(this.deposit_payment_groupBox);
             this.Controls.Add(this.table_numComboBox);
             this.Controls.Add(this.table_num_label);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "AddNewClient";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "addNewClient";
             this.Load += new System.EventHandler(this.addNewClient_Load);
             this.client_info_group_box.ResumeLayout(false);

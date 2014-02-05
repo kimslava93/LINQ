@@ -28,62 +28,78 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.buttonCloseSession = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.timerTick = new System.Windows.Forms.Timer(this.components);
+            this.pictureBoxCloseSession = new System.Windows.Forms.PictureBox();
+            this.labelCurrentTime = new System.Windows.Forms.Label();
+            this.pictureBoxStop = new System.Windows.Forms.PictureBox();
+            this.pictureBoxAdd = new System.Windows.Forms.PictureBox();
             this.dataGridViewDaysSession = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCloseSession)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxStop)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAdd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDaysSession)).BeginInit();
             this.SuspendLayout();
             // 
-            // splitContainer1
+            // timerTick
             // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.timerTick.Enabled = true;
+            this.timerTick.Interval = 1000;
+            this.timerTick.Tick += new System.EventHandler(this.timerTick_Tick);
             // 
-            // splitContainer1.Panel1
+            // pictureBoxCloseSession
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.buttonCloseSession);
-            this.splitContainer1.Panel1.Controls.Add(this.pictureBox1);
+            this.pictureBoxCloseSession.Image = global::LINQ_test.Properties.Resources.close;
+            this.pictureBoxCloseSession.InitialImage = global::LINQ_test.Properties.Resources.close;
+            this.pictureBoxCloseSession.Location = new System.Drawing.Point(803, 12);
+            this.pictureBoxCloseSession.Name = "pictureBoxCloseSession";
+            this.pictureBoxCloseSession.Size = new System.Drawing.Size(66, 66);
+            this.pictureBoxCloseSession.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxCloseSession.TabIndex = 8;
+            this.pictureBoxCloseSession.TabStop = false;
+            this.pictureBoxCloseSession.Click += new System.EventHandler(this.pictureBoxCloseSession_MouseClick);
+            this.pictureBoxCloseSession.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBoxCloseSession_MouseDown);
+            this.pictureBoxCloseSession.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBoxCloseSession_MouseUp);
             // 
-            // splitContainer1.Panel2
+            // labelCurrentTime
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.dataGridViewDaysSession);
-            this.splitContainer1.Size = new System.Drawing.Size(881, 456);
-            this.splitContainer1.SplitterDistance = 95;
-            this.splitContainer1.TabIndex = 0;
+            this.labelCurrentTime.AutoSize = true;
+            this.labelCurrentTime.Font = new System.Drawing.Font("Perfo", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelCurrentTime.Location = new System.Drawing.Point(644, 24);
+            this.labelCurrentTime.Name = "labelCurrentTime";
+            this.labelCurrentTime.Size = new System.Drawing.Size(75, 34);
+            this.labelCurrentTime.TabIndex = 7;
+            this.labelCurrentTime.Text = "TIME";
             // 
-            // buttonCloseSession
+            // pictureBoxStop
             // 
-            this.buttonCloseSession.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonCloseSession.Location = new System.Drawing.Point(787, 12);
-            this.buttonCloseSession.Name = "buttonCloseSession";
-            this.buttonCloseSession.Size = new System.Drawing.Size(82, 66);
-            this.buttonCloseSession.TabIndex = 1;
-            this.buttonCloseSession.Text = "Close Session";
-            this.buttonCloseSession.UseVisualStyleBackColor = true;
-            this.buttonCloseSession.Click += new System.EventHandler(this.buttonCloseSession_Click);
+            this.pictureBoxStop.Image = global::LINQ_test.Properties.Resources.stop;
+            this.pictureBoxStop.InitialImage = global::LINQ_test.Properties.Resources.stop;
+            this.pictureBoxStop.Location = new System.Drawing.Point(108, 12);
+            this.pictureBoxStop.Name = "pictureBoxStop";
+            this.pictureBoxStop.Size = new System.Drawing.Size(66, 66);
+            this.pictureBoxStop.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxStop.TabIndex = 6;
+            this.pictureBoxStop.TabStop = false;
+            this.pictureBoxStop.Click += new System.EventHandler(this.pictureBoxStop_Click_1);
+            this.pictureBoxStop.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBoxStop_MouseDown_1);
+            this.pictureBoxStop.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBoxStop_MouseUp_1);
             // 
-            // pictureBox1
+            // pictureBoxAdd
             // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.BackgroundImage = global::LINQ_test.Properties.Resources.add;
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(66, 66);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
-            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
-            this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
+            this.pictureBoxAdd.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBoxAdd.BackgroundImage = global::LINQ_test.Properties.Resources.add;
+            this.pictureBoxAdd.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBoxAdd.Image = global::LINQ_test.Properties.Resources.stop;
+            this.pictureBoxAdd.Location = new System.Drawing.Point(12, 12);
+            this.pictureBoxAdd.Name = "pictureBoxAdd";
+            this.pictureBoxAdd.Size = new System.Drawing.Size(66, 66);
+            this.pictureBoxAdd.TabIndex = 5;
+            this.pictureBoxAdd.TabStop = false;
+            this.pictureBoxAdd.Click += new System.EventHandler(this.pictureBoxAdd_Click);
+            this.pictureBoxAdd.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBoxAdd_MouseDown);
+            this.pictureBoxAdd.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBoxAdd_MouseUp);
             // 
             // dataGridViewDaysSession
             // 
@@ -96,49 +112,55 @@
             this.dataGridViewDaysSession.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.dataGridViewDaysSession.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridViewDaysSession.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.LightGray;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.LightSkyBlue;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewDaysSession.DefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridViewDaysSession.Dock = System.Windows.Forms.DockStyle.Fill;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.LightSkyBlue;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewDaysSession.DefaultCellStyle = dataGridViewCellStyle9;
+            this.dataGridViewDaysSession.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.dataGridViewDaysSession.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridViewDaysSession.GridColor = System.Drawing.Color.Black;
-            this.dataGridViewDaysSession.Location = new System.Drawing.Point(0, 0);
+            this.dataGridViewDaysSession.Location = new System.Drawing.Point(0, 84);
             this.dataGridViewDaysSession.Name = "dataGridViewDaysSession";
             this.dataGridViewDaysSession.RowHeadersVisible = false;
             this.dataGridViewDaysSession.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dataGridViewDaysSession.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewDaysSession.Size = new System.Drawing.Size(881, 357);
-            this.dataGridViewDaysSession.TabIndex = 0;
+            this.dataGridViewDaysSession.Size = new System.Drawing.Size(881, 372);
+            this.dataGridViewDaysSession.TabIndex = 9;
             // 
             // CellClickContent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(881, 456);
-            this.Controls.Add(this.splitContainer1);
+            this.Controls.Add(this.dataGridViewDaysSession);
+            this.Controls.Add(this.pictureBoxCloseSession);
+            this.Controls.Add(this.labelCurrentTime);
+            this.Controls.Add(this.pictureBoxStop);
+            this.Controls.Add(this.pictureBoxAdd);
+            this.DoubleBuffered = true;
             this.Name = "CellClickContent";
             this.Text = "CellContentClick";
             this.Load += new System.EventHandler(this.CellClickContent_Load);
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCloseSession)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxStop)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAdd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDaysSession)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.Timer timerTick;
+        private System.Windows.Forms.PictureBox pictureBoxCloseSession;
+        private System.Windows.Forms.Label labelCurrentTime;
+        private System.Windows.Forms.PictureBox pictureBoxStop;
+        private System.Windows.Forms.PictureBox pictureBoxAdd;
         private System.Windows.Forms.DataGridView dataGridViewDaysSession;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button buttonCloseSession;
     }
 }
