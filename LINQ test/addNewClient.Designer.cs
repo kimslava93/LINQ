@@ -56,6 +56,8 @@
             this.client_time_out_label = new System.Windows.Forms.Label();
             this.table_numComboBox = new System.Windows.Forms.ComboBox();
             this.table_num_label = new System.Windows.Forms.Label();
+            this.labelcurrentTime = new System.Windows.Forms.Label();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.client_info_group_box.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.add_money_on_card_numericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.paid_price_numeric_up_down)).BeginInit();
@@ -226,12 +228,12 @@
             // current_time_label
             // 
             this.current_time_label.AutoSize = true;
-            this.current_time_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.current_time_label.Font = new System.Drawing.Font("Perfo", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.current_time_label.Location = new System.Drawing.Point(414, 9);
             this.current_time_label.Name = "current_time_label";
-            this.current_time_label.Size = new System.Drawing.Size(90, 16);
+            this.current_time_label.Size = new System.Drawing.Size(147, 28);
             this.current_time_label.TabIndex = 12;
-            this.current_time_label.Text = "Current time";
+            this.current_time_label.Text = "Current date";
             // 
             // paid_sum_label
             // 
@@ -254,9 +256,9 @@
             // add_client_button
             // 
             this.add_client_button.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.add_client_button.Location = new System.Drawing.Point(0, 232);
+            this.add_client_button.Location = new System.Drawing.Point(0, 253);
             this.add_client_button.Name = "add_client_button";
-            this.add_client_button.Size = new System.Drawing.Size(627, 38);
+            this.add_client_button.Size = new System.Drawing.Size(638, 38);
             this.add_client_button.TabIndex = 13;
             this.add_client_button.Text = "Add new client";
             this.add_client_button.UseVisualStyleBackColor = true;
@@ -298,7 +300,7 @@
             this.numericUpDownHoursLeft.Enabled = false;
             this.numericUpDownHoursLeft.Location = new System.Drawing.Point(157, 91);
             this.numericUpDownHoursLeft.Maximum = new decimal(new int[] {
-            48,
+            500,
             0,
             0,
             0});
@@ -344,13 +346,33 @@
             this.table_num_label.TabIndex = 8;
             this.table_num_label.Text = "Table #";
             // 
+            // labelcurrentTime
+            // 
+            this.labelcurrentTime.AutoSize = true;
+            this.labelcurrentTime.Font = new System.Drawing.Font("Perfo", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelcurrentTime.Location = new System.Drawing.Point(414, 41);
+            this.labelcurrentTime.Name = "labelcurrentTime";
+            this.labelcurrentTime.Size = new System.Drawing.Size(147, 28);
+            this.labelcurrentTime.TabIndex = 12;
+            this.labelcurrentTime.Text = "Current time";
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.progressBar1.Location = new System.Drawing.Point(0, 225);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(638, 28);
+            this.progressBar1.TabIndex = 16;
+            // 
             // AddNewClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(627, 270);
+            this.ClientSize = new System.Drawing.Size(638, 291);
+            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.client_info_group_box);
             this.Controls.Add(this.combo_box_client_discount_card);
+            this.Controls.Add(this.labelcurrentTime);
             this.Controls.Add(this.current_time_label);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.add_client_button);
@@ -407,5 +429,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDownMinutesLeft;
         private System.Windows.Forms.NumericUpDown numericUpDownHoursLeft;
         private dbDataContext db;
+        private System.Windows.Forms.Label labelcurrentTime;
+        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }

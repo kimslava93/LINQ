@@ -1,10 +1,11 @@
 ﻿using System;
-using System.ComponentModel;
+//using System.ComponentModel;
 using System.Data.Linq;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
+//using System.Windows.Forms.VisualStyles;
+//using System.Threading;
 
 namespace LINQ_test
 {
@@ -15,6 +16,7 @@ namespace LINQ_test
         private Options _opt;
         private dbDataContext _db;
         private readonly int _dailyId;
+        private DateTime _currentDateTime;
         public AddNewClient(int dayId)
         {
             _dailyId = dayId;
@@ -23,19 +25,29 @@ namespace LINQ_test
 
         private void addNewClient_Load(object sender, EventArgs e)
         {
+            _currentDateTime = DateTime.Now;
             db = new dbDataContext();
             _opt = new Options();
             _db = new dbDataContext();
             StartTimer();
             OpenTables();
-            table_numComboBox.SelectedIndex = 0;
+            if (table_numComboBox.Items.Count > 0)
+            {
+                table_numComboBox.SelectedIndex = 0;
+            }
+            else
+            {
+                MessageBox.Show("There is no available free consoles. Sorry for that!");
+                Close();
+            }
         }
 
         private void StartTimer()
         {
             current_time_timer.Start();
             current_time_timer.Enabled = true;
-            current_time_label.Text = "Time: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+            current_time_label.Text = _currentDateTime.ToString("dd MMMM");
+            labelcurrentTime.Text = _currentDateTime.ToString("HH:mm:ss");
         }
 
         private void table_num_MouseClick(object sender, MouseEventArgs e)
@@ -119,7 +131,9 @@ namespace LINQ_test
 
         private void current_time_timer_Tick(object sender, EventArgs e)
         {
-            current_time_label.Text = "Time: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+            _currentDateTime = DateTime.Now;
+            current_time_label.Text = _currentDateTime.ToString("dd MMMM");
+            labelcurrentTime.Text = _currentDateTime.ToString("HH:mm:ss");
         }
 
         private void paid_price_numeric_up_down_KeyPress(object sender, KeyPressEventArgs e)
@@ -134,23 +148,13 @@ namespace LINQ_test
         {
             if (radioButtonPaidSum.Checked == true)
             {
-                if (paid_price_numeric_up_down.Value <= 0 || paid_price_numeric_up_down.Value > paid_price_numeric_up_down.Maximum ||
-                    paid_price_numeric_up_down.Value < paid_price_numeric_up_down.Minimum)
+                if (paid_price_numeric_up_down.Value > paid_price_numeric_up_down.Maximum ||
+                    paid_price_numeric_up_down.Value < 0)
                 {
                     paid_price_numeric_up_down.Value = 0;
+                    paid_price_numeric_up_down.Text = "0";
                 }
-                try
-                {
-                    TimeSpan paidTime = _opt.GetTimeToPlay((double)paid_price_numeric_up_down.Value,
-                        table_numComboBox.Text);
-                    numericUpDownHoursLeft.Value = paidTime.Hours;
-                    numericUpDownMinutesLeft.Value = paidTime.Minutes;
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("Error!!!");
-                }
-                paid_price_numeric_up_down.Select(paid_price_numeric_up_down.Text.Length, 0);
+                GetTimeOnNumericUpDownValueChanged();
             }
         }
 
@@ -183,7 +187,7 @@ namespace LINQ_test
 
         private void radioButtonPaidSum_CheckedChanged(object sender, EventArgs e)
         {
-            if (radioButtonPaidSum.Checked == true)
+            if (radioButtonPaidSum.Checked)
             {
                 radioButtonTimeOut.Checked = false;
                 numericUpDownHoursLeft.Enabled = false;
@@ -210,25 +214,29 @@ namespace LINQ_test
 
         private void paid_price_numeric_up_down_ValueChanged(object sender, EventArgs e)
         {
-            if (radioButtonPaidSum.Checked == true)
+            if (radioButtonPaidSum.Checked)
             {
-                if (paid_price_numeric_up_down.Value <= 0 || 
-                    paid_price_numeric_up_down.Value > paid_price_numeric_up_down.Maximum ||
-                    paid_price_numeric_up_down.Value < paid_price_numeric_up_down.Minimum)
+                if (paid_price_numeric_up_down.Value > 30000 ||
+                    paid_price_numeric_up_down.Value < 0)
                 {
                     paid_price_numeric_up_down.Value = 0;
                 }
-                try
-                {
-                    TimeSpan paidTime = _opt.GetTimeToPlay((double) paid_price_numeric_up_down.Value,
-                        table_numComboBox.Text);
-                    numericUpDownHoursLeft.Value = paidTime.Hours;
-                    numericUpDownMinutesLeft.Value = paidTime.Minutes;
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("Error");
-                }
+                GetTimeOnNumericUpDownValueChanged();
+            }
+        }
+
+        private void GetTimeOnNumericUpDownValueChanged()
+        {
+            try
+            {
+                DateTime paidTime = _opt.GetTimeToPlay((double) paid_price_numeric_up_down.Value,
+                    table_numComboBox.Text);
+                numericUpDownHoursLeft.Value = (paidTime.Day - 1)*24 + paidTime.Hour;
+                numericUpDownMinutesLeft.Value = paidTime.Minute;
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Error occured during updating paid time values!");
             }
         }
 
@@ -236,8 +244,6 @@ namespace LINQ_test
         {
             TimeSpan currentTime = DateTime.Now.TimeOfDay;
             TimeSpan ct = DateTime.Now.TimeOfDay;
-            
-            
             
             if (!String.IsNullOrWhiteSpace(table_numComboBox.Text))
             {
@@ -256,21 +262,19 @@ namespace LINQ_test
                             (double) ((numericUpDownHoursLeft.Value*60) + numericUpDownMinutesLeft.Value));
                     
                     Table<days_sessions_t> daysT = db.GetTable<days_sessions_t>();
-                    days_sessions_t daysSessionT = new days_sessions_t();
-                    
-//                    Table<session_accounting_t> sessAccount = db.GetTable<session_accounting_t>();
-//                    session_accounting_t sessionAccountingT = new session_accounting_t();
-
+                    var daysSessionT = new days_sessions_t();
+                   
                     daysSessionT.daily_id = _dailyId;
                     daysSessionT.client_num = (int) q + 1;
-                    daysSessionT.start_game = new TimeSpan(currentTime.Hours, currentTime.Minutes, 0);
-                    daysSessionT.end_game = new TimeSpan(ct.Add(paidTime).Hours, ct.Add(paidTime).Minutes, 0);
+                    daysSessionT.start_game = new TimeSpan(currentTime.Hours, currentTime.Minutes, currentTime.Seconds);
+                    daysSessionT.end_game = new TimeSpan(ct.Add(paidTime).Hours, ct.Add(paidTime).Minutes, ct.Add(paidTime).Seconds);
                     daysSessionT.playstation_id = table_numComboBox.Text;
                     daysSessionT.client_id = combo_box_client_discount_card.Text;
                     daysSessionT.session_state = "opened";
 
-                    daysSessionT.played_money = 0;
-                    daysSessionT.payed_sum = (double)(paid_price_numeric_up_down.Value);
+
+                    daysSessionT.payed_sum = (double) (paid_price_numeric_up_down.Value);
+                    daysSessionT.money_left = (double) (paid_price_numeric_up_down.Value);
                     daysSessionT.session_discount = 0;
                     daysSessionT.session_id = daysSessionT.session_id;
                     try
@@ -292,7 +296,7 @@ namespace LINQ_test
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show(ex.ToString());
+                            MessageBox.Show(ex.Message);
                         }
                     }
                     else
@@ -307,6 +311,7 @@ namespace LINQ_test
 
         private void numericUpDownHoursLeft_ValueChanged(object sender, EventArgs e)
         {
+//           if(numericUpDownHoursLeft.Value >)
            setPrice();
         }
 
@@ -315,7 +320,7 @@ namespace LINQ_test
             if (numericUpDownMinutesLeft.Value >= 60)
             {
                 numericUpDownMinutesLeft.Value = 0;
-                numericUpDownHoursLeft.Value ++;
+                numericUpDownHoursLeft.Value++;
             }
             setPrice();
         }
@@ -333,8 +338,9 @@ namespace LINQ_test
             {
                 if (numericUpDownHoursLeft.Value >= 0 || numericUpDownMinutesLeft.Value >= 0)
                 {
-                    TimeSpan toPlay = new TimeSpan(0, (int)numericUpDownHoursLeft.Value, (int)numericUpDownMinutesLeft.Value, 0);
-                    double price = opt.GetSumToPay(table_numComboBox.Text, toPlay);
+                    TimeSpan toPlay = new TimeSpan((int)numericUpDownHoursLeft.Value/24, (int)numericUpDownHoursLeft.Value, (int)numericUpDownMinutesLeft.Value, 0);
+
+                    double price = opt.GetSumToPay(table_numComboBox.Text, toPlay,currentTime);
                     if (price < 0)
                     {
                         paid_price_numeric_up_down.Value = 0;

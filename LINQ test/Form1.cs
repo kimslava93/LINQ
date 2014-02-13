@@ -12,23 +12,23 @@ namespace LINQ_test
         private dbDataContext db;
         private bool _opAdmins = false;
         private bool op_operators = false;
-
+//        private List<object> test; 
         public Form1()
         {
-            
+//            test = t;
             db = new dbDataContext();
 //            Options o = new Options();
-//            MessageBox.Show("Price of 1 plst is now " + o.GetCurrentPriceFor("1") +
-//                            "\nPrice of 2 plst is now " + o.GetCurrentPriceFor("2") +
-//                            "\nPrice of 3 plst is now " + o.GetCurrentPriceFor("3") +
-//                            "\nPrice of 4 plst is now " + o.GetCurrentPriceFor("4") +
-//                            "\nPrice of 5 plst is now " + o.GetCurrentPriceFor("5") +
-//                            "\nPrice of 6 plst is now " + o.GetCurrentPriceFor("6") +
-//                            "\nPrice of 7 plst is now " + o.GetCurrentPriceFor("7") +
-//                            "\nPrice of 8 plst is now " + o.GetCurrentPriceFor("8") +
-//                            "\nPrice of 9 plst is now " + o.GetCurrentPriceFor("9") +
-//                            "\nPrice of 11 plst is now " + o.GetCurrentPriceFor("11") +
-//                            "\nPrice of VIP2 plst is now " + o.GetCurrentPriceFor("12")
+//            MessageBox.Show("Price of 1 plst is now " + o.GetCurrentPriceForPlaystation("1") +
+//                            "\nPrice of 2 plst is now " + o.GetCurrentPriceForPlaystation("2") +
+//                            "\nPrice of 3 plst is now " + o.GetCurrentPriceForPlaystation("3") +
+//                            "\nPrice of 4 plst is now " + o.GetCurrentPriceForPlaystation("4") +
+//                            "\nPrice of 5 plst is now " + o.GetCurrentPriceForPlaystation("5") +
+//                            "\nPrice of 6 plst is now " + o.GetCurrentPriceForPlaystation("6") +
+//                            "\nPrice of 7 plst is now " + o.GetCurrentPriceForPlaystation("7") +
+//                            "\nPrice of 8 plst is now " + o.GetCurrentPriceForPlaystation("8") +
+//                            "\nPrice of 9 plst is now " + o.GetCurrentPriceForPlaystation("9") +
+//                            "\nPrice of 11 plst is now " + o.GetCurrentPriceForPlaystation("11") +
+//                            "\nPrice of VIP2 plst is now " + o.GetCurrentPriceForPlaystation("12")
 //                );
             InitializeComponent();
             GetMainTable();
@@ -68,9 +68,9 @@ namespace LINQ_test
                     }).ToList();
 
                 _opAdmins = true;
-                for (int i = 0; i < admin.Count; i++)
+                foreach (var i in admin)
                 {
-                    admincomboBox1.Items.Add(admin[i].name);
+                    admincomboBox1.Items.Add(i.name);
                 }
             }
         }
@@ -90,9 +90,9 @@ namespace LINQ_test
                     {
                         o.name
                     }).ToList();
-                for (int i = 0; i < operators.Count; i++)
+                foreach (var i in operators)
                 {
-                    comboBox2.Items.Add(operators[i].name);
+                    comboBox2.Items.Add(i.name);
                 }
             }
         }
@@ -100,13 +100,13 @@ namespace LINQ_test
         private void AddNewGlobalSessionButton_Click(object sender, EventArgs e)
         {
             //Get admin
-            string adminID = (from a in db.GetTable<personal_info_t>()
+            var adminID = (from a in db.GetTable<personal_info_t>()
                 where a.name == admincomboBox1.Text
                 select a.person_id).SingleOrDefault<String>();
             //get operator
-            string operatorID = (from personal_info in db.GetTable<personal_info_t>()
-                where personal_info.name == comboBox2.Text
-                select personal_info.person_id).SingleOrDefault<String>();
+            var operatorID = (from personalInfo in db.GetTable<personal_info_t>()
+                where personalInfo.name == comboBox2.Text
+                select personalInfo.person_id).SingleOrDefault<String>();
             if (DoesLastSessionOpened())
             {
                 var dateOfOpenedSession = (from cs in db.GetTable<global_session_t>()
@@ -142,13 +142,13 @@ namespace LINQ_test
         private void AddNewGlobalSession(string adminID, string operatorID, DateTime date)
         {
             Table<global_session_t> gst = db.GetTable<global_session_t>();
-            global_session_t glob_sess = new global_session_t();
-            glob_sess.administrator_id = adminID;
-            glob_sess.operator_id = operatorID;
-            glob_sess.start_session = date;
-            glob_sess.end_session = date;
+            var globSess = new global_session_t();
+            globSess.administrator_id = adminID;
+            globSess.operator_id = operatorID;
+            globSess.start_session = date;
+            globSess.end_session = date;
 
-            gst.InsertOnSubmit(glob_sess);
+            gst.InsertOnSubmit(globSess);
             db.SubmitChanges();
         }
 
@@ -158,30 +158,27 @@ namespace LINQ_test
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            List<string> data = new List<string>();
+            var data = new List<string>();
             for (int i = 0; i < dataGridView1.ColumnCount; i++)
             {
                 if (dataGridView1.CurrentRow != null)
                     data.Add(dataGridView1.CurrentRow.Cells[i].Value.ToString());
             }
-            CellClickContent daysSession = new CellClickContent(data);
+            var daysSession = new CellClickContent(data);
             daysSession.ShowDialog();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            TimezoneRedactor tzc = new TimezoneRedactor();
+            var tzc = new TimezoneRedactor();
             tzc.ShowDialog();
             GetMainTable();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            DiscountRedactor dr = new DiscountRedactor();
+            var dr = new DiscountRedactor();
             dr.ShowDialog();
         }
-
-        
-        
     }
 }

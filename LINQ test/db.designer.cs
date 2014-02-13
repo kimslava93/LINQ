@@ -33,6 +33,12 @@ namespace LINQ_test
     partial void Inserttimezones_t(timezones_t instance);
     partial void Updatetimezones_t(timezones_t instance);
     partial void Deletetimezones_t(timezones_t instance);
+    partial void Insertclient_info_t(client_info_t instance);
+    partial void Updateclient_info_t(client_info_t instance);
+    partial void Deleteclient_info_t(client_info_t instance);
+    partial void Insertdiscounts_t(discounts_t instance);
+    partial void Updatediscounts_t(discounts_t instance);
+    partial void Deletediscounts_t(discounts_t instance);
     partial void Insertglobal_session_t(global_session_t instance);
     partial void Updateglobal_session_t(global_session_t instance);
     partial void Deleteglobal_session_t(global_session_t instance);
@@ -45,12 +51,6 @@ namespace LINQ_test
     partial void Inserttables_t(tables_t instance);
     partial void Updatetables_t(tables_t instance);
     partial void Deletetables_t(tables_t instance);
-    partial void Insertclient_info_t(client_info_t instance);
-    partial void Updateclient_info_t(client_info_t instance);
-    partial void Deleteclient_info_t(client_info_t instance);
-    partial void Insertdiscounts_t(discounts_t instance);
-    partial void Updatediscounts_t(discounts_t instance);
-    partial void Deletediscounts_t(discounts_t instance);
     partial void Insertdays_sessions_t(days_sessions_t instance);
     partial void Updatedays_sessions_t(days_sessions_t instance);
     partial void Deletedays_sessions_t(days_sessions_t instance);
@@ -102,6 +102,22 @@ namespace LINQ_test
 			}
 		}
 		
+		public System.Data.Linq.Table<client_info_t> client_info_ts
+		{
+			get
+			{
+				return this.GetTable<client_info_t>();
+			}
+		}
+		
+		public System.Data.Linq.Table<discounts_t> discounts_ts
+		{
+			get
+			{
+				return this.GetTable<discounts_t>();
+			}
+		}
+		
 		public System.Data.Linq.Table<global_session_t> global_session_ts
 		{
 			get
@@ -139,22 +155,6 @@ namespace LINQ_test
 			get
 			{
 				return this.GetTable<tables_t>();
-			}
-		}
-		
-		public System.Data.Linq.Table<client_info_t> client_info_ts
-		{
-			get
-			{
-				return this.GetTable<client_info_t>();
-			}
-		}
-		
-		public System.Data.Linq.Table<discounts_t> discounts_ts
-		{
-			get
-			{
-				return this.GetTable<discounts_t>();
 			}
 		}
 		
@@ -347,6 +347,662 @@ namespace LINQ_test
 		{
 			this.SendPropertyChanging();
 			entity.timezones_t = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.client_info_t")]
+	public partial class client_info_t : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _client_id;
+		
+		private string _name;
+		
+		private System.Nullable<System.DateTime> _birthday;
+		
+		private string _email;
+		
+		private string _phone;
+		
+		private System.DateTime _activation_date;
+		
+		private System.Nullable<double> _pers_discount;
+		
+		private double _played_sum;
+		
+		private EntitySet<days_sessions_t> _days_sessions_ts;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void Onclient_idChanging(string value);
+    partial void Onclient_idChanged();
+    partial void OnnameChanging(string value);
+    partial void OnnameChanged();
+    partial void OnbirthdayChanging(System.Nullable<System.DateTime> value);
+    partial void OnbirthdayChanged();
+    partial void OnemailChanging(string value);
+    partial void OnemailChanged();
+    partial void OnphoneChanging(string value);
+    partial void OnphoneChanged();
+    partial void Onactivation_dateChanging(System.DateTime value);
+    partial void Onactivation_dateChanged();
+    partial void Onpers_discountChanging(System.Nullable<double> value);
+    partial void Onpers_discountChanged();
+    partial void Onplayed_sumChanging(double value);
+    partial void Onplayed_sumChanged();
+    #endregion
+		
+		public client_info_t()
+		{
+			this._days_sessions_ts = new EntitySet<days_sessions_t>(new Action<days_sessions_t>(this.attach_days_sessions_ts), new Action<days_sessions_t>(this.detach_days_sessions_ts));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_client_id", DbType="VarChar(10) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string client_id
+		{
+			get
+			{
+				return this._client_id;
+			}
+			set
+			{
+				if ((this._client_id != value))
+				{
+					this.Onclient_idChanging(value);
+					this.SendPropertyChanging();
+					this._client_id = value;
+					this.SendPropertyChanged("client_id");
+					this.Onclient_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				if ((this._name != value))
+				{
+					this.OnnameChanging(value);
+					this.SendPropertyChanging();
+					this._name = value;
+					this.SendPropertyChanged("name");
+					this.OnnameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_birthday", DbType="Date")]
+		public System.Nullable<System.DateTime> birthday
+		{
+			get
+			{
+				return this._birthday;
+			}
+			set
+			{
+				if ((this._birthday != value))
+				{
+					this.OnbirthdayChanging(value);
+					this.SendPropertyChanging();
+					this._birthday = value;
+					this.SendPropertyChanged("birthday");
+					this.OnbirthdayChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_email", DbType="VarChar(50)")]
+		public string email
+		{
+			get
+			{
+				return this._email;
+			}
+			set
+			{
+				if ((this._email != value))
+				{
+					this.OnemailChanging(value);
+					this.SendPropertyChanging();
+					this._email = value;
+					this.SendPropertyChanged("email");
+					this.OnemailChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_phone", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string phone
+		{
+			get
+			{
+				return this._phone;
+			}
+			set
+			{
+				if ((this._phone != value))
+				{
+					this.OnphoneChanging(value);
+					this.SendPropertyChanging();
+					this._phone = value;
+					this.SendPropertyChanged("phone");
+					this.OnphoneChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_activation_date", DbType="Date NOT NULL")]
+		public System.DateTime activation_date
+		{
+			get
+			{
+				return this._activation_date;
+			}
+			set
+			{
+				if ((this._activation_date != value))
+				{
+					this.Onactivation_dateChanging(value);
+					this.SendPropertyChanging();
+					this._activation_date = value;
+					this.SendPropertyChanged("activation_date");
+					this.Onactivation_dateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_pers_discount", DbType="Float")]
+		public System.Nullable<double> pers_discount
+		{
+			get
+			{
+				return this._pers_discount;
+			}
+			set
+			{
+				if ((this._pers_discount != value))
+				{
+					this.Onpers_discountChanging(value);
+					this.SendPropertyChanging();
+					this._pers_discount = value;
+					this.SendPropertyChanged("pers_discount");
+					this.Onpers_discountChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_played_sum", DbType="Float NOT NULL")]
+		public double played_sum
+		{
+			get
+			{
+				return this._played_sum;
+			}
+			set
+			{
+				if ((this._played_sum != value))
+				{
+					this.Onplayed_sumChanging(value);
+					this.SendPropertyChanging();
+					this._played_sum = value;
+					this.SendPropertyChanged("played_sum");
+					this.Onplayed_sumChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="client_info_t_days_sessions_t", Storage="_days_sessions_ts", ThisKey="client_id", OtherKey="client_id")]
+		public EntitySet<days_sessions_t> days_sessions_ts
+		{
+			get
+			{
+				return this._days_sessions_ts;
+			}
+			set
+			{
+				this._days_sessions_ts.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_days_sessions_ts(days_sessions_t entity)
+		{
+			this.SendPropertyChanging();
+			entity.client_info_t = this;
+		}
+		
+		private void detach_days_sessions_ts(days_sessions_t entity)
+		{
+			this.SendPropertyChanging();
+			entity.client_info_t = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.discounts_t")]
+	public partial class discounts_t : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _discount_id;
+		
+		private string _discount_reason;
+		
+		private System.DateTime _startDate;
+		
+		private System.DateTime _endDate;
+		
+		private System.Nullable<double> _discountSize;
+		
+		private string _discount_timezones;
+		
+		private string _discount_playstation_ids;
+		
+		private System.Nullable<System.TimeSpan> _required_hours_for_bonus;
+		
+		private System.Nullable<System.TimeSpan> _bonus_hours;
+		
+		private string _required_item_to_buy;
+		
+		private System.Nullable<int> _number_of_required_items;
+		
+		private string _bonus_item;
+		
+		private System.Nullable<int> _number_of_bonus_item;
+		
+		private System.Nullable<double> _price_discount;
+		
+		private string _discount_auditory;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void Ondiscount_idChanging(int value);
+    partial void Ondiscount_idChanged();
+    partial void Ondiscount_reasonChanging(string value);
+    partial void Ondiscount_reasonChanged();
+    partial void OnstartDateChanging(System.DateTime value);
+    partial void OnstartDateChanged();
+    partial void OnendDateChanging(System.DateTime value);
+    partial void OnendDateChanged();
+    partial void OndiscountSizeChanging(System.Nullable<double> value);
+    partial void OndiscountSizeChanged();
+    partial void Ondiscount_timezonesChanging(string value);
+    partial void Ondiscount_timezonesChanged();
+    partial void Ondiscount_playstation_idsChanging(string value);
+    partial void Ondiscount_playstation_idsChanged();
+    partial void Onrequired_hours_for_bonusChanging(System.Nullable<System.TimeSpan> value);
+    partial void Onrequired_hours_for_bonusChanged();
+    partial void Onbonus_hoursChanging(System.Nullable<System.TimeSpan> value);
+    partial void Onbonus_hoursChanged();
+    partial void Onrequired_item_to_buyChanging(string value);
+    partial void Onrequired_item_to_buyChanged();
+    partial void Onnumber_of_required_itemsChanging(System.Nullable<int> value);
+    partial void Onnumber_of_required_itemsChanged();
+    partial void Onbonus_itemChanging(string value);
+    partial void Onbonus_itemChanged();
+    partial void Onnumber_of_bonus_itemChanging(System.Nullable<int> value);
+    partial void Onnumber_of_bonus_itemChanged();
+    partial void Onprice_discountChanging(System.Nullable<double> value);
+    partial void Onprice_discountChanged();
+    partial void Ondiscount_auditoryChanging(string value);
+    partial void Ondiscount_auditoryChanged();
+    #endregion
+		
+		public discounts_t()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_discount_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int discount_id
+		{
+			get
+			{
+				return this._discount_id;
+			}
+			set
+			{
+				if ((this._discount_id != value))
+				{
+					this.Ondiscount_idChanging(value);
+					this.SendPropertyChanging();
+					this._discount_id = value;
+					this.SendPropertyChanged("discount_id");
+					this.Ondiscount_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_discount_reason", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string discount_reason
+		{
+			get
+			{
+				return this._discount_reason;
+			}
+			set
+			{
+				if ((this._discount_reason != value))
+				{
+					this.Ondiscount_reasonChanging(value);
+					this.SendPropertyChanging();
+					this._discount_reason = value;
+					this.SendPropertyChanged("discount_reason");
+					this.Ondiscount_reasonChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_startDate", DbType="DateTime NOT NULL")]
+		public System.DateTime startDate
+		{
+			get
+			{
+				return this._startDate;
+			}
+			set
+			{
+				if ((this._startDate != value))
+				{
+					this.OnstartDateChanging(value);
+					this.SendPropertyChanging();
+					this._startDate = value;
+					this.SendPropertyChanged("startDate");
+					this.OnstartDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_endDate", DbType="DateTime NOT NULL")]
+		public System.DateTime endDate
+		{
+			get
+			{
+				return this._endDate;
+			}
+			set
+			{
+				if ((this._endDate != value))
+				{
+					this.OnendDateChanging(value);
+					this.SendPropertyChanging();
+					this._endDate = value;
+					this.SendPropertyChanged("endDate");
+					this.OnendDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_discountSize", DbType="Float")]
+		public System.Nullable<double> discountSize
+		{
+			get
+			{
+				return this._discountSize;
+			}
+			set
+			{
+				if ((this._discountSize != value))
+				{
+					this.OndiscountSizeChanging(value);
+					this.SendPropertyChanging();
+					this._discountSize = value;
+					this.SendPropertyChanged("discountSize");
+					this.OndiscountSizeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_discount_timezones", DbType="VarChar(200)")]
+		public string discount_timezones
+		{
+			get
+			{
+				return this._discount_timezones;
+			}
+			set
+			{
+				if ((this._discount_timezones != value))
+				{
+					this.Ondiscount_timezonesChanging(value);
+					this.SendPropertyChanging();
+					this._discount_timezones = value;
+					this.SendPropertyChanged("discount_timezones");
+					this.Ondiscount_timezonesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_discount_playstation_ids", DbType="VarChar(200)")]
+		public string discount_playstation_ids
+		{
+			get
+			{
+				return this._discount_playstation_ids;
+			}
+			set
+			{
+				if ((this._discount_playstation_ids != value))
+				{
+					this.Ondiscount_playstation_idsChanging(value);
+					this.SendPropertyChanging();
+					this._discount_playstation_ids = value;
+					this.SendPropertyChanged("discount_playstation_ids");
+					this.Ondiscount_playstation_idsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_required_hours_for_bonus", DbType="Time")]
+		public System.Nullable<System.TimeSpan> required_hours_for_bonus
+		{
+			get
+			{
+				return this._required_hours_for_bonus;
+			}
+			set
+			{
+				if ((this._required_hours_for_bonus != value))
+				{
+					this.Onrequired_hours_for_bonusChanging(value);
+					this.SendPropertyChanging();
+					this._required_hours_for_bonus = value;
+					this.SendPropertyChanged("required_hours_for_bonus");
+					this.Onrequired_hours_for_bonusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_bonus_hours", DbType="Time")]
+		public System.Nullable<System.TimeSpan> bonus_hours
+		{
+			get
+			{
+				return this._bonus_hours;
+			}
+			set
+			{
+				if ((this._bonus_hours != value))
+				{
+					this.Onbonus_hoursChanging(value);
+					this.SendPropertyChanging();
+					this._bonus_hours = value;
+					this.SendPropertyChanged("bonus_hours");
+					this.Onbonus_hoursChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_required_item_to_buy", DbType="VarChar(50)")]
+		public string required_item_to_buy
+		{
+			get
+			{
+				return this._required_item_to_buy;
+			}
+			set
+			{
+				if ((this._required_item_to_buy != value))
+				{
+					this.Onrequired_item_to_buyChanging(value);
+					this.SendPropertyChanging();
+					this._required_item_to_buy = value;
+					this.SendPropertyChanged("required_item_to_buy");
+					this.Onrequired_item_to_buyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_number_of_required_items", DbType="Int")]
+		public System.Nullable<int> number_of_required_items
+		{
+			get
+			{
+				return this._number_of_required_items;
+			}
+			set
+			{
+				if ((this._number_of_required_items != value))
+				{
+					this.Onnumber_of_required_itemsChanging(value);
+					this.SendPropertyChanging();
+					this._number_of_required_items = value;
+					this.SendPropertyChanged("number_of_required_items");
+					this.Onnumber_of_required_itemsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_bonus_item", DbType="VarChar(50)")]
+		public string bonus_item
+		{
+			get
+			{
+				return this._bonus_item;
+			}
+			set
+			{
+				if ((this._bonus_item != value))
+				{
+					this.Onbonus_itemChanging(value);
+					this.SendPropertyChanging();
+					this._bonus_item = value;
+					this.SendPropertyChanged("bonus_item");
+					this.Onbonus_itemChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_number_of_bonus_item", DbType="Int")]
+		public System.Nullable<int> number_of_bonus_item
+		{
+			get
+			{
+				return this._number_of_bonus_item;
+			}
+			set
+			{
+				if ((this._number_of_bonus_item != value))
+				{
+					this.Onnumber_of_bonus_itemChanging(value);
+					this.SendPropertyChanging();
+					this._number_of_bonus_item = value;
+					this.SendPropertyChanged("number_of_bonus_item");
+					this.Onnumber_of_bonus_itemChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_price_discount", DbType="Float")]
+		public System.Nullable<double> price_discount
+		{
+			get
+			{
+				return this._price_discount;
+			}
+			set
+			{
+				if ((this._price_discount != value))
+				{
+					this.Onprice_discountChanging(value);
+					this.SendPropertyChanging();
+					this._price_discount = value;
+					this.SendPropertyChanged("price_discount");
+					this.Onprice_discountChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_discount_auditory", DbType="VarChar(50)")]
+		public string discount_auditory
+		{
+			get
+			{
+				return this._discount_auditory;
+			}
+			set
+			{
+				if ((this._discount_auditory != value))
+				{
+					this.Ondiscount_auditoryChanging(value);
+					this.SendPropertyChanging();
+					this._discount_auditory = value;
+					this.SendPropertyChanged("discount_auditory");
+					this.Ondiscount_auditoryChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 	
@@ -1397,662 +2053,6 @@ namespace LINQ_test
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.client_info_t")]
-	public partial class client_info_t : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private string _client_id;
-		
-		private string _name;
-		
-		private System.Nullable<System.DateTime> _birthday;
-		
-		private string _email;
-		
-		private string _phone;
-		
-		private System.DateTime _activation_date;
-		
-		private System.Nullable<double> _pers_discount;
-		
-		private double _played_sum;
-		
-		private EntitySet<days_sessions_t> _days_sessions_ts;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void Onclient_idChanging(string value);
-    partial void Onclient_idChanged();
-    partial void OnnameChanging(string value);
-    partial void OnnameChanged();
-    partial void OnbirthdayChanging(System.Nullable<System.DateTime> value);
-    partial void OnbirthdayChanged();
-    partial void OnemailChanging(string value);
-    partial void OnemailChanged();
-    partial void OnphoneChanging(string value);
-    partial void OnphoneChanged();
-    partial void Onactivation_dateChanging(System.DateTime value);
-    partial void Onactivation_dateChanged();
-    partial void Onpers_discountChanging(System.Nullable<double> value);
-    partial void Onpers_discountChanged();
-    partial void Onplayed_sumChanging(double value);
-    partial void Onplayed_sumChanged();
-    #endregion
-		
-		public client_info_t()
-		{
-			this._days_sessions_ts = new EntitySet<days_sessions_t>(new Action<days_sessions_t>(this.attach_days_sessions_ts), new Action<days_sessions_t>(this.detach_days_sessions_ts));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_client_id", DbType="VarChar(10) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string client_id
-		{
-			get
-			{
-				return this._client_id;
-			}
-			set
-			{
-				if ((this._client_id != value))
-				{
-					this.Onclient_idChanging(value);
-					this.SendPropertyChanging();
-					this._client_id = value;
-					this.SendPropertyChanged("client_id");
-					this.Onclient_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string name
-		{
-			get
-			{
-				return this._name;
-			}
-			set
-			{
-				if ((this._name != value))
-				{
-					this.OnnameChanging(value);
-					this.SendPropertyChanging();
-					this._name = value;
-					this.SendPropertyChanged("name");
-					this.OnnameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_birthday", DbType="Date")]
-		public System.Nullable<System.DateTime> birthday
-		{
-			get
-			{
-				return this._birthday;
-			}
-			set
-			{
-				if ((this._birthday != value))
-				{
-					this.OnbirthdayChanging(value);
-					this.SendPropertyChanging();
-					this._birthday = value;
-					this.SendPropertyChanged("birthday");
-					this.OnbirthdayChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_email", DbType="VarChar(50)")]
-		public string email
-		{
-			get
-			{
-				return this._email;
-			}
-			set
-			{
-				if ((this._email != value))
-				{
-					this.OnemailChanging(value);
-					this.SendPropertyChanging();
-					this._email = value;
-					this.SendPropertyChanged("email");
-					this.OnemailChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_phone", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string phone
-		{
-			get
-			{
-				return this._phone;
-			}
-			set
-			{
-				if ((this._phone != value))
-				{
-					this.OnphoneChanging(value);
-					this.SendPropertyChanging();
-					this._phone = value;
-					this.SendPropertyChanged("phone");
-					this.OnphoneChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_activation_date", DbType="Date NOT NULL")]
-		public System.DateTime activation_date
-		{
-			get
-			{
-				return this._activation_date;
-			}
-			set
-			{
-				if ((this._activation_date != value))
-				{
-					this.Onactivation_dateChanging(value);
-					this.SendPropertyChanging();
-					this._activation_date = value;
-					this.SendPropertyChanged("activation_date");
-					this.Onactivation_dateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_pers_discount", DbType="Float")]
-		public System.Nullable<double> pers_discount
-		{
-			get
-			{
-				return this._pers_discount;
-			}
-			set
-			{
-				if ((this._pers_discount != value))
-				{
-					this.Onpers_discountChanging(value);
-					this.SendPropertyChanging();
-					this._pers_discount = value;
-					this.SendPropertyChanged("pers_discount");
-					this.Onpers_discountChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_played_sum", DbType="Float NOT NULL")]
-		public double played_sum
-		{
-			get
-			{
-				return this._played_sum;
-			}
-			set
-			{
-				if ((this._played_sum != value))
-				{
-					this.Onplayed_sumChanging(value);
-					this.SendPropertyChanging();
-					this._played_sum = value;
-					this.SendPropertyChanged("played_sum");
-					this.Onplayed_sumChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="client_info_t_days_sessions_t", Storage="_days_sessions_ts", ThisKey="client_id", OtherKey="client_id")]
-		public EntitySet<days_sessions_t> days_sessions_ts
-		{
-			get
-			{
-				return this._days_sessions_ts;
-			}
-			set
-			{
-				this._days_sessions_ts.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_days_sessions_ts(days_sessions_t entity)
-		{
-			this.SendPropertyChanging();
-			entity.client_info_t = this;
-		}
-		
-		private void detach_days_sessions_ts(days_sessions_t entity)
-		{
-			this.SendPropertyChanging();
-			entity.client_info_t = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.discounts_t")]
-	public partial class discounts_t : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _discount_id;
-		
-		private string _discount_reason;
-		
-		private System.DateTime _startDate;
-		
-		private System.DateTime _endDate;
-		
-		private System.Nullable<double> _discountSize;
-		
-		private string _discount_timezones;
-		
-		private string _discount_playstation_ids;
-		
-		private System.Nullable<System.TimeSpan> _required_hours_for_bonus;
-		
-		private System.Nullable<System.TimeSpan> _bonus_hours;
-		
-		private string _required_item_to_buy;
-		
-		private System.Nullable<int> _number_of_required_items;
-		
-		private string _bonus_item;
-		
-		private System.Nullable<int> _number_of_bonus_item;
-		
-		private System.Nullable<double> _price_discount;
-		
-		private string _discount_auditory;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void Ondiscount_idChanging(int value);
-    partial void Ondiscount_idChanged();
-    partial void Ondiscount_reasonChanging(string value);
-    partial void Ondiscount_reasonChanged();
-    partial void OnstartDateChanging(System.DateTime value);
-    partial void OnstartDateChanged();
-    partial void OnendDateChanging(System.DateTime value);
-    partial void OnendDateChanged();
-    partial void OndiscountSizeChanging(System.Nullable<double> value);
-    partial void OndiscountSizeChanged();
-    partial void Ondiscount_timezonesChanging(string value);
-    partial void Ondiscount_timezonesChanged();
-    partial void Ondiscount_playstation_idsChanging(string value);
-    partial void Ondiscount_playstation_idsChanged();
-    partial void Onrequired_hours_for_bonusChanging(System.Nullable<System.TimeSpan> value);
-    partial void Onrequired_hours_for_bonusChanged();
-    partial void Onbonus_hoursChanging(System.Nullable<System.TimeSpan> value);
-    partial void Onbonus_hoursChanged();
-    partial void Onrequired_item_to_buyChanging(string value);
-    partial void Onrequired_item_to_buyChanged();
-    partial void Onnumber_of_required_itemsChanging(System.Nullable<int> value);
-    partial void Onnumber_of_required_itemsChanged();
-    partial void Onbonus_itemChanging(string value);
-    partial void Onbonus_itemChanged();
-    partial void Onnumber_of_bonus_itemChanging(System.Nullable<int> value);
-    partial void Onnumber_of_bonus_itemChanged();
-    partial void Onprice_discountChanging(System.Nullable<double> value);
-    partial void Onprice_discountChanged();
-    partial void Ondiscount_auditoryChanging(string value);
-    partial void Ondiscount_auditoryChanged();
-    #endregion
-		
-		public discounts_t()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_discount_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int discount_id
-		{
-			get
-			{
-				return this._discount_id;
-			}
-			set
-			{
-				if ((this._discount_id != value))
-				{
-					this.Ondiscount_idChanging(value);
-					this.SendPropertyChanging();
-					this._discount_id = value;
-					this.SendPropertyChanged("discount_id");
-					this.Ondiscount_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_discount_reason", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string discount_reason
-		{
-			get
-			{
-				return this._discount_reason;
-			}
-			set
-			{
-				if ((this._discount_reason != value))
-				{
-					this.Ondiscount_reasonChanging(value);
-					this.SendPropertyChanging();
-					this._discount_reason = value;
-					this.SendPropertyChanged("discount_reason");
-					this.Ondiscount_reasonChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_startDate", DbType="DateTime NOT NULL")]
-		public System.DateTime startDate
-		{
-			get
-			{
-				return this._startDate;
-			}
-			set
-			{
-				if ((this._startDate != value))
-				{
-					this.OnstartDateChanging(value);
-					this.SendPropertyChanging();
-					this._startDate = value;
-					this.SendPropertyChanged("startDate");
-					this.OnstartDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_endDate", DbType="DateTime NOT NULL")]
-		public System.DateTime endDate
-		{
-			get
-			{
-				return this._endDate;
-			}
-			set
-			{
-				if ((this._endDate != value))
-				{
-					this.OnendDateChanging(value);
-					this.SendPropertyChanging();
-					this._endDate = value;
-					this.SendPropertyChanged("endDate");
-					this.OnendDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_discountSize", DbType="Float")]
-		public System.Nullable<double> discountSize
-		{
-			get
-			{
-				return this._discountSize;
-			}
-			set
-			{
-				if ((this._discountSize != value))
-				{
-					this.OndiscountSizeChanging(value);
-					this.SendPropertyChanging();
-					this._discountSize = value;
-					this.SendPropertyChanged("discountSize");
-					this.OndiscountSizeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_discount_timezones", DbType="VarChar(200)")]
-		public string discount_timezones
-		{
-			get
-			{
-				return this._discount_timezones;
-			}
-			set
-			{
-				if ((this._discount_timezones != value))
-				{
-					this.Ondiscount_timezonesChanging(value);
-					this.SendPropertyChanging();
-					this._discount_timezones = value;
-					this.SendPropertyChanged("discount_timezones");
-					this.Ondiscount_timezonesChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_discount_playstation_ids", DbType="VarChar(200)")]
-		public string discount_playstation_ids
-		{
-			get
-			{
-				return this._discount_playstation_ids;
-			}
-			set
-			{
-				if ((this._discount_playstation_ids != value))
-				{
-					this.Ondiscount_playstation_idsChanging(value);
-					this.SendPropertyChanging();
-					this._discount_playstation_ids = value;
-					this.SendPropertyChanged("discount_playstation_ids");
-					this.Ondiscount_playstation_idsChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_required_hours_for_bonus", DbType="Time")]
-		public System.Nullable<System.TimeSpan> required_hours_for_bonus
-		{
-			get
-			{
-				return this._required_hours_for_bonus;
-			}
-			set
-			{
-				if ((this._required_hours_for_bonus != value))
-				{
-					this.Onrequired_hours_for_bonusChanging(value);
-					this.SendPropertyChanging();
-					this._required_hours_for_bonus = value;
-					this.SendPropertyChanged("required_hours_for_bonus");
-					this.Onrequired_hours_for_bonusChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_bonus_hours", DbType="Time")]
-		public System.Nullable<System.TimeSpan> bonus_hours
-		{
-			get
-			{
-				return this._bonus_hours;
-			}
-			set
-			{
-				if ((this._bonus_hours != value))
-				{
-					this.Onbonus_hoursChanging(value);
-					this.SendPropertyChanging();
-					this._bonus_hours = value;
-					this.SendPropertyChanged("bonus_hours");
-					this.Onbonus_hoursChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_required_item_to_buy", DbType="VarChar(50)")]
-		public string required_item_to_buy
-		{
-			get
-			{
-				return this._required_item_to_buy;
-			}
-			set
-			{
-				if ((this._required_item_to_buy != value))
-				{
-					this.Onrequired_item_to_buyChanging(value);
-					this.SendPropertyChanging();
-					this._required_item_to_buy = value;
-					this.SendPropertyChanged("required_item_to_buy");
-					this.Onrequired_item_to_buyChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_number_of_required_items", DbType="Int")]
-		public System.Nullable<int> number_of_required_items
-		{
-			get
-			{
-				return this._number_of_required_items;
-			}
-			set
-			{
-				if ((this._number_of_required_items != value))
-				{
-					this.Onnumber_of_required_itemsChanging(value);
-					this.SendPropertyChanging();
-					this._number_of_required_items = value;
-					this.SendPropertyChanged("number_of_required_items");
-					this.Onnumber_of_required_itemsChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_bonus_item", DbType="VarChar(50)")]
-		public string bonus_item
-		{
-			get
-			{
-				return this._bonus_item;
-			}
-			set
-			{
-				if ((this._bonus_item != value))
-				{
-					this.Onbonus_itemChanging(value);
-					this.SendPropertyChanging();
-					this._bonus_item = value;
-					this.SendPropertyChanged("bonus_item");
-					this.Onbonus_itemChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_number_of_bonus_item", DbType="Int")]
-		public System.Nullable<int> number_of_bonus_item
-		{
-			get
-			{
-				return this._number_of_bonus_item;
-			}
-			set
-			{
-				if ((this._number_of_bonus_item != value))
-				{
-					this.Onnumber_of_bonus_itemChanging(value);
-					this.SendPropertyChanging();
-					this._number_of_bonus_item = value;
-					this.SendPropertyChanged("number_of_bonus_item");
-					this.Onnumber_of_bonus_itemChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_price_discount", DbType="Float")]
-		public System.Nullable<double> price_discount
-		{
-			get
-			{
-				return this._price_discount;
-			}
-			set
-			{
-				if ((this._price_discount != value))
-				{
-					this.Onprice_discountChanging(value);
-					this.SendPropertyChanging();
-					this._price_discount = value;
-					this.SendPropertyChanged("price_discount");
-					this.Onprice_discountChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_discount_auditory", DbType="VarChar(50)")]
-		public string discount_auditory
-		{
-			get
-			{
-				return this._discount_auditory;
-			}
-			set
-			{
-				if ((this._discount_auditory != value))
-				{
-					this.Ondiscount_auditoryChanging(value);
-					this.SendPropertyChanging();
-					this._discount_auditory = value;
-					this.SendPropertyChanged("discount_auditory");
-					this.Ondiscount_auditoryChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.days_sessions_t")]
 	public partial class days_sessions_t : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -2075,7 +2075,7 @@ namespace LINQ_test
 		
 		private double _payed_sum;
 		
-		private double _played_money;
+		private double _money_left;
 		
 		private string _comments;
 		
@@ -2109,8 +2109,8 @@ namespace LINQ_test
     partial void Onclient_idChanged();
     partial void Onpayed_sumChanging(double value);
     partial void Onpayed_sumChanged();
-    partial void Onplayed_moneyChanging(double value);
-    partial void Onplayed_moneyChanged();
+    partial void Onmoney_leftChanging(double value);
+    partial void Onmoney_leftChanged();
     partial void OncommentsChanging(string value);
     partial void OncommentsChanged();
     partial void Onsession_discountChanging(System.Nullable<double> value);
@@ -2299,27 +2299,27 @@ namespace LINQ_test
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_played_money", DbType="Float NOT NULL")]
-		public double played_money
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_money_left", DbType="Float NOT NULL")]
+		public double money_left
 		{
 			get
 			{
-				return this._played_money;
+				return this._money_left;
 			}
 			set
 			{
-				if ((this._played_money != value))
+				if ((this._money_left != value))
 				{
-					this.Onplayed_moneyChanging(value);
+					this.Onmoney_leftChanging(value);
 					this.SendPropertyChanging();
-					this._played_money = value;
-					this.SendPropertyChanged("played_money");
-					this.Onplayed_moneyChanged();
+					this._money_left = value;
+					this.SendPropertyChanged("money_left");
+					this.Onmoney_leftChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_comments", DbType="VarChar(100)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_comments", DbType="VarChar(1000)")]
 		public string comments
 		{
 			get
