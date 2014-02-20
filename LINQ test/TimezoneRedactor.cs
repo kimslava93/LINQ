@@ -149,16 +149,18 @@ namespace LINQ_test
                             q.playstation_id
                         }).ToList();
 
-                    Table<playstation_timezone> timeZoneTable = db.GetTable<playstation_timezone>();
-                    playstation_timezone playstationTimezone = new playstation_timezone();
+                    Table<playstation_timezone> timeZoneTable;
+                    playstation_timezone playstationTimezone;
 
                     for (int i = 0; i < playstations.Count; i++)
                     {
                         timeZoneTable = db.GetTable<playstation_timezone>();
-                        playstationTimezone = new playstation_timezone();
+                        playstationTimezone = new playstation_timezone
+                        {
+                            playstation_id = playstations[i].playstation_id,
+                            timezone_name = name
+                        };
 
-                        playstationTimezone.playstation_id = playstations[i].playstation_id;
-                        playstationTimezone.timezone_name = name;
                         timeZoneTable.InsertOnSubmit(playstationTimezone);
                         db.SubmitChanges();
                     }

@@ -18,20 +18,19 @@ namespace LINQ_test
         private readonly Table<playstation_timezone> _plstTimeZonesTables;
         private readonly Table<timezones_t> _timeZonesTable;
         private readonly dbDataContext _db;
-        private List<Timezones> _timeZonesList; 
+        private List<TimezonesMyClass> _timeZonesList; 
         public Options()
         {
             _db = new dbDataContext();
             _plstTimeZonesTables = _db.GetTable<playstation_timezone>();
             _timeZonesTable = _db.GetTable<timezones_t>();
-//             _timeZonesList = new List<Timezones>();
             CacheDataFromDb();
         }
 
         private void CacheDataFromDb()
         {
             _timeZonesList = (from t in _timeZonesTable
-                    select new Timezones()
+                    select new TimezonesMyClass()
                     {
                         TimezoneName = t.timezone_name,
                         TimezoneStart = t.timezone_start,
@@ -138,14 +137,18 @@ namespace LINQ_test
                     select t).SingleOrDefault();
                 if (table != null)
                     table.playstation_state = "free";
-                try
+                while (true)
                 {
-                    _db.SubmitChanges();
-                }
-                catch
-                {
-                    MessageBox.Show(
-                        "Can't update DataBase during closing client comments! Please contact with Developer");
+                    try
+                    {
+                        _db.SubmitChanges();
+                        break;
+                    }
+                    catch
+                    {
+                        MessageBox.Show(
+                            "Can't update DataBase during closing client comments! Please contact with Developer");
+                    }
                 }
             }
         }

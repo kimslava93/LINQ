@@ -95,15 +95,6 @@
       <Association Name="tables_t_playstation_timezone" Member="tables_t" ThisKey="playstation_id" OtherKey="playstation_id" Type="tables_t" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.tables_t" Member="tables_ts">
-    <Type Name="tables_t">
-      <Column Name="playstation_id" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="playstation_state" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
-      <Column Name="order_time" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
-      <Association Name="tables_t_playstation_timezone" Member="playstation_timezones" ThisKey="playstation_id" OtherKey="playstation_id" Type="playstation_timezone" />
-      <Association Name="tables_t_days_sessions_t" Member="days_sessions_ts" ThisKey="playstation_id" OtherKey="playstation_id" Type="days_sessions_t" />
-    </Type>
-  </Table>
   <Table Name="dbo.days_sessions_t" Member="days_sessions_ts">
     <Type Name="days_sessions_t">
       <Column Name="daily_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
@@ -121,6 +112,15 @@
       <Association Name="client_info_t_days_sessions_t" Member="client_info_t" ThisKey="client_id" OtherKey="client_id" Type="client_info_t" IsForeignKey="true" />
       <Association Name="global_session_t_days_sessions_t" Member="global_session_t" ThisKey="daily_id" OtherKey="daily_id" Type="global_session_t" IsForeignKey="true" />
       <Association Name="tables_t_days_sessions_t" Member="tables_t" ThisKey="playstation_id" OtherKey="playstation_id" Type="tables_t" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tables_t" Member="tables_ts">
+    <Type Name="tables_t">
+      <Column Name="playstation_id" Type="System.String" DbType="VarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="playstation_state" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="order_time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="tables_t_playstation_timezone" Member="playstation_timezones" ThisKey="playstation_id" OtherKey="playstation_id" Type="playstation_timezone" />
+      <Association Name="tables_t_days_sessions_t" Member="days_sessions_ts" ThisKey="playstation_id" OtherKey="playstation_id" Type="days_sessions_t" />
     </Type>
   </Table>
 </Database>

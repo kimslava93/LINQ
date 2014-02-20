@@ -11,8 +11,8 @@ namespace LINQ_test
 {
     public partial class AddNewClient : Form
     {
-        private bool _opTable = false;
-        private bool _opClients = false;
+        private bool _opTable;
+        private bool _opClients;
         private Options _opt;
         private dbDataContext _db;
         private readonly int _dailyId;
@@ -280,7 +280,7 @@ namespace LINQ_test
                     try
                     {
                         daysT.InsertOnSubmit(daysSessionT);
-                        db.SubmitChanges();
+//                        db.SubmitChanges();
                     }
                     catch (Exception ex)
                     {
@@ -311,8 +311,7 @@ namespace LINQ_test
 
         private void numericUpDownHoursLeft_ValueChanged(object sender, EventArgs e)
         {
-//           if(numericUpDownHoursLeft.Value >)
-           setPrice();
+            SetPrice();
         }
 
         private void numericUpDownMinutesLeft_ValueChanged(object sender, EventArgs e)
@@ -322,10 +321,10 @@ namespace LINQ_test
                 numericUpDownMinutesLeft.Value = 0;
                 numericUpDownHoursLeft.Value++;
             }
-            setPrice();
+            SetPrice();
         }
 
-        private void setPrice()
+        private void SetPrice()
         {
             Options opt = new Options();
             DateTime currentTime = DateTime.Now;

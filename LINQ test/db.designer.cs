@@ -48,12 +48,12 @@ namespace LINQ_test
     partial void Insertplaystation_timezone(playstation_timezone instance);
     partial void Updateplaystation_timezone(playstation_timezone instance);
     partial void Deleteplaystation_timezone(playstation_timezone instance);
-    partial void Inserttables_t(tables_t instance);
-    partial void Updatetables_t(tables_t instance);
-    partial void Deletetables_t(tables_t instance);
     partial void Insertdays_sessions_t(days_sessions_t instance);
     partial void Updatedays_sessions_t(days_sessions_t instance);
     partial void Deletedays_sessions_t(days_sessions_t instance);
+    partial void Inserttables_t(tables_t instance);
+    partial void Updatetables_t(tables_t instance);
+    partial void Deletetables_t(tables_t instance);
     #endregion
 		
 		public dbDataContext() : 
@@ -150,19 +150,19 @@ namespace LINQ_test
 			}
 		}
 		
-		public System.Data.Linq.Table<tables_t> tables_ts
-		{
-			get
-			{
-				return this.GetTable<tables_t>();
-			}
-		}
-		
 		public System.Data.Linq.Table<days_sessions_t> days_sessions_ts
 		{
 			get
 			{
 				return this.GetTable<days_sessions_t>();
+			}
+		}
+		
+		public System.Data.Linq.Table<tables_t> tables_ts
+		{
+			get
+			{
+				return this.GetTable<tables_t>();
 			}
 		}
 	}
@@ -1887,172 +1887,6 @@ namespace LINQ_test
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tables_t")]
-	public partial class tables_t : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private string _playstation_id;
-		
-		private string _playstation_state;
-		
-		private System.Nullable<System.TimeSpan> _order_time;
-		
-		private EntitySet<playstation_timezone> _playstation_timezones;
-		
-		private EntitySet<days_sessions_t> _days_sessions_ts;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void Onplaystation_idChanging(string value);
-    partial void Onplaystation_idChanged();
-    partial void Onplaystation_stateChanging(string value);
-    partial void Onplaystation_stateChanged();
-    partial void Onorder_timeChanging(System.Nullable<System.TimeSpan> value);
-    partial void Onorder_timeChanged();
-    #endregion
-		
-		public tables_t()
-		{
-			this._playstation_timezones = new EntitySet<playstation_timezone>(new Action<playstation_timezone>(this.attach_playstation_timezones), new Action<playstation_timezone>(this.detach_playstation_timezones));
-			this._days_sessions_ts = new EntitySet<days_sessions_t>(new Action<days_sessions_t>(this.attach_days_sessions_ts), new Action<days_sessions_t>(this.detach_days_sessions_ts));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_playstation_id", DbType="VarChar(10) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string playstation_id
-		{
-			get
-			{
-				return this._playstation_id;
-			}
-			set
-			{
-				if ((this._playstation_id != value))
-				{
-					this.Onplaystation_idChanging(value);
-					this.SendPropertyChanging();
-					this._playstation_id = value;
-					this.SendPropertyChanged("playstation_id");
-					this.Onplaystation_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_playstation_state", DbType="VarChar(10) NOT NULL", CanBeNull=false)]
-		public string playstation_state
-		{
-			get
-			{
-				return this._playstation_state;
-			}
-			set
-			{
-				if ((this._playstation_state != value))
-				{
-					this.Onplaystation_stateChanging(value);
-					this.SendPropertyChanging();
-					this._playstation_state = value;
-					this.SendPropertyChanged("playstation_state");
-					this.Onplaystation_stateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_order_time", DbType="Time")]
-		public System.Nullable<System.TimeSpan> order_time
-		{
-			get
-			{
-				return this._order_time;
-			}
-			set
-			{
-				if ((this._order_time != value))
-				{
-					this.Onorder_timeChanging(value);
-					this.SendPropertyChanging();
-					this._order_time = value;
-					this.SendPropertyChanged("order_time");
-					this.Onorder_timeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tables_t_playstation_timezone", Storage="_playstation_timezones", ThisKey="playstation_id", OtherKey="playstation_id")]
-		public EntitySet<playstation_timezone> playstation_timezones
-		{
-			get
-			{
-				return this._playstation_timezones;
-			}
-			set
-			{
-				this._playstation_timezones.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tables_t_days_sessions_t", Storage="_days_sessions_ts", ThisKey="playstation_id", OtherKey="playstation_id")]
-		public EntitySet<days_sessions_t> days_sessions_ts
-		{
-			get
-			{
-				return this._days_sessions_ts;
-			}
-			set
-			{
-				this._days_sessions_ts.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_playstation_timezones(playstation_timezone entity)
-		{
-			this.SendPropertyChanging();
-			entity.tables_t = this;
-		}
-		
-		private void detach_playstation_timezones(playstation_timezone entity)
-		{
-			this.SendPropertyChanging();
-			entity.tables_t = null;
-		}
-		
-		private void attach_days_sessions_ts(days_sessions_t entity)
-		{
-			this.SendPropertyChanging();
-			entity.tables_t = this;
-		}
-		
-		private void detach_days_sessions_ts(days_sessions_t entity)
-		{
-			this.SendPropertyChanging();
-			entity.tables_t = null;
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.days_sessions_t")]
 	public partial class days_sessions_t : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -2499,6 +2333,172 @@ namespace LINQ_test
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tables_t")]
+	public partial class tables_t : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _playstation_id;
+		
+		private string _playstation_state;
+		
+		private System.Nullable<System.DateTime> _order_time;
+		
+		private EntitySet<playstation_timezone> _playstation_timezones;
+		
+		private EntitySet<days_sessions_t> _days_sessions_ts;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void Onplaystation_idChanging(string value);
+    partial void Onplaystation_idChanged();
+    partial void Onplaystation_stateChanging(string value);
+    partial void Onplaystation_stateChanged();
+    partial void Onorder_timeChanging(System.Nullable<System.DateTime> value);
+    partial void Onorder_timeChanged();
+    #endregion
+		
+		public tables_t()
+		{
+			this._playstation_timezones = new EntitySet<playstation_timezone>(new Action<playstation_timezone>(this.attach_playstation_timezones), new Action<playstation_timezone>(this.detach_playstation_timezones));
+			this._days_sessions_ts = new EntitySet<days_sessions_t>(new Action<days_sessions_t>(this.attach_days_sessions_ts), new Action<days_sessions_t>(this.detach_days_sessions_ts));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_playstation_id", DbType="VarChar(10) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string playstation_id
+		{
+			get
+			{
+				return this._playstation_id;
+			}
+			set
+			{
+				if ((this._playstation_id != value))
+				{
+					this.Onplaystation_idChanging(value);
+					this.SendPropertyChanging();
+					this._playstation_id = value;
+					this.SendPropertyChanged("playstation_id");
+					this.Onplaystation_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_playstation_state", DbType="VarChar(10) NOT NULL", CanBeNull=false)]
+		public string playstation_state
+		{
+			get
+			{
+				return this._playstation_state;
+			}
+			set
+			{
+				if ((this._playstation_state != value))
+				{
+					this.Onplaystation_stateChanging(value);
+					this.SendPropertyChanging();
+					this._playstation_state = value;
+					this.SendPropertyChanged("playstation_state");
+					this.Onplaystation_stateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_order_time", DbType="DateTime")]
+		public System.Nullable<System.DateTime> order_time
+		{
+			get
+			{
+				return this._order_time;
+			}
+			set
+			{
+				if ((this._order_time != value))
+				{
+					this.Onorder_timeChanging(value);
+					this.SendPropertyChanging();
+					this._order_time = value;
+					this.SendPropertyChanged("order_time");
+					this.Onorder_timeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tables_t_playstation_timezone", Storage="_playstation_timezones", ThisKey="playstation_id", OtherKey="playstation_id")]
+		public EntitySet<playstation_timezone> playstation_timezones
+		{
+			get
+			{
+				return this._playstation_timezones;
+			}
+			set
+			{
+				this._playstation_timezones.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tables_t_days_sessions_t", Storage="_days_sessions_ts", ThisKey="playstation_id", OtherKey="playstation_id")]
+		public EntitySet<days_sessions_t> days_sessions_ts
+		{
+			get
+			{
+				return this._days_sessions_ts;
+			}
+			set
+			{
+				this._days_sessions_ts.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_playstation_timezones(playstation_timezone entity)
+		{
+			this.SendPropertyChanging();
+			entity.tables_t = this;
+		}
+		
+		private void detach_playstation_timezones(playstation_timezone entity)
+		{
+			this.SendPropertyChanging();
+			entity.tables_t = null;
+		}
+		
+		private void attach_days_sessions_ts(days_sessions_t entity)
+		{
+			this.SendPropertyChanging();
+			entity.tables_t = this;
+		}
+		
+		private void detach_days_sessions_ts(days_sessions_t entity)
+		{
+			this.SendPropertyChanging();
+			entity.tables_t = null;
 		}
 	}
 }

@@ -46,7 +46,7 @@ namespace LINQ_test
                     where days.daily_id == _dailyId
                     where days.session_state == "opened"
                     orderby days.money_left ascending
-                    select new DaySessionClass()
+                    select new DaySessionClass
                     {
                         SessionId = days.session_id,
                         PlaystationId = days.playstation_id,
@@ -86,7 +86,6 @@ namespace LINQ_test
 
         private void CheckSoonToCloseClients()
         {
-//            var curTimeToFindDifference = DateTime.Now;
             foreach (DaySessionClass os in _daySessionList)
             {
 //                var end = new DateTime(curTimeToFindDifference.Year, curTimeToFindDifference.Month,
@@ -121,13 +120,12 @@ namespace LINQ_test
                 }
                 else if (os.MoneyLeft > 3 && os.MoneyLeft < 6)
                 {
-                    //warning highlight
                     HighLight(os.SessionId, 0);
+                    //warning highlight
                 }
                 else if (os.MoneyLeft > 0 && os.MoneyLeft <= 3)
                 {
                     HighLight(os.SessionId, 1);
-                    //Message
                 }
                 else if (os.MoneyLeft <= 0)
                 {

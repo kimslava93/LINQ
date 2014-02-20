@@ -11,14 +11,14 @@ namespace LINQ_test
 {
     public partial class ClosingSessionDialog : Form
     {
-        private int dailyId;
-        private int sessionId;
-        private dbDataContext db;
+        private readonly int _dailyId;
+        private readonly int _sessionId;
+        private readonly dbDataContext _db;
         public ClosingSessionDialog(int dID, int sId)
         {
-            db = new dbDataContext();
-            dailyId = dID;
-            sessionId = sId;
+            _db = new dbDataContext();
+            _dailyId = dID;
+            _sessionId = sId;
             InitializeComponent();
         }
 
@@ -36,39 +36,45 @@ namespace LINQ_test
         private void buttonClientGone_Click(object sender, EventArgs e)
         {
             TimeSpan currentTime = DateTime.Now.TimeOfDay;
-            var selectedSessionId = (from s in db.GetTable<days_sessions_t>()
-                                     where s.daily_id == dailyId
-                                     where s.session_id == sessionId
-                                     select s).SingleOrDefault();
-            if (selectedSessionId != null)
+            lock (_db)
             {
-                selectedSessionId.end_game = new TimeSpan(currentTime.Hours, currentTime.Minutes, 0);
-                double leftMoney = selectedSessionId.payed_sum - selectedSessionId.money_left;
-                if (string.IsNullOrEmpty(selectedSessionId.comments))
-                {
-                    selectedSessionId.comments += "\n";
-                }
-                selectedSessionId.comments += "Client had gone, before times out! Money left from session " +
-                                                  leftMoney;
-                selectedSessionId.session_state = "closed";
+                var selectedSessionId = (from s in _db.GetTable<days_sessions_t>()
+                    where s.daily_id == _dailyId
+                    where s.session_id == _sessionId
+                    select s).SingleOrDefault();
 
-                var table = (from t in db.GetTable<tables_t>()
-                             where t.playstation_id == selectedSessionId.playstation_id
-                             select t).SingleOrDefault();
-                table.playstation_state = "free";
-                try
+                if (selectedSessionId != null)
                 {
-                    db.SubmitChanges();
+                    selectedSessionId.end_game = new TimeSpan(currentTime.Hours, currentTime.Minutes, 0);
+                    double leftMoney = selectedSessionId.payed_sum - selectedSessionId.money_left;
+                    if (string.IsNullOrEmpty(selectedSessionId.comments))
+                    {
+                        selectedSessionId.comments += "\n";
+                    }
+                    selectedSessionId.comments += "Client had gone, before times out! Money left from session " +
+                                                  leftMoney;
+                    selectedSessionId.session_state = "closed";
+
+                    var table = (from t in _db.GetTable<tables_t>()
+                        where t.playstation_id == selectedSessionId.playstation_id
+                        select t).SingleOrDefault();
+                    if (table != null) 
+                        table.playstation_state = "free";
+                    try
+                    {
+                        _db.SubmitChanges();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(
+                            "Can't update DataBase during inserting comments! Please contact with Developer. Now will be shown an error!");
+                        MessageBox.Show(ex.ToString());
+                    }
                 }
-                catch (Exception ex)
+                else
                 {
-                    MessageBox.Show("Can't update DataBase during inserting comments! Please contact with Developer. Now will be shown an error!");
-                    MessageBox.Show(ex.ToString());
+                    MessageBox.Show("Can't find record with given data!");
                 }
-            }
-            else
-            {
-                MessageBox.Show("Can't find record with given data!");
             }
             Close();
         }
@@ -94,30 +100,30 @@ namespace LINQ_test
             if (richTextBoxComments.Text.Length > 5)
             {
                 TimeSpan currentTime = DateTime.Now.TimeOfDay;
-                var selectedSessionId = (from s in db.GetTable<days_sessions_t>()
-                    where s.daily_id == dailyId
-                    where s.session_id == sessionId
+                var selectedSessionId = (from s in _db.GetTable<days_sessions_t>()
+                    where s.daily_id == _dailyId
+                    where s.session_id == _sessionId
                     select s).SingleOrDefault();
                 if (selectedSessionId != null)
                 {
                     selectedSessionId.end_game = new TimeSpan(currentTime.Hours, currentTime.Minutes, 0);
-                    double leftMoney = selectedSessionId.payed_sum - selectedSessionId.money_left;
+                    double leftMoney = selectedSessionId.money_left;
                     if (string.IsNullOrEmpty(selectedSessionId.comments))
                     {
                         selectedSessionId.comments += "\n";
                     }
-                    selectedSessionId.comments += "Some problems were founded! Money were returned " +
-                                                  leftMoney + "\n" + richTextBoxComments.Text;
+                    selectedSessionId.comments += "Some problems were founded! " +leftMoney+ " were returned " +
+                                                  "\n" + richTextBoxComments.Text;
                     selectedSessionId.session_state = "closed";
 
-                    var table = (from t in db.GetTable<tables_t>()
+                    var table = (from t in _db.GetTable<tables_t>()
                         where t.playstation_id == selectedSessionId.playstation_id
                         select t).SingleOrDefault();
                     if (table != null) 
                         table.playstation_state = "free";
                     try
                     {
-                        db.SubmitChanges();
+                        _db.SubmitChanges();
                     }
                     catch (Exception ex)
                     {

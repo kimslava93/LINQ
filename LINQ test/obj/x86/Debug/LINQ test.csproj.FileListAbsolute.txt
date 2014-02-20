@@ -20,6 +20,8 @@ D:\My Files\Dropbox\project diploma\Diploma\LINQ-master\LINQ test\obj\x86\Debug\
 D:\My Files\Dropbox\project diploma\Diploma\LINQ-master\LINQ test\obj\x86\Debug\LINQ_test.ChangeCostForm.resources
 D:\My Files\Dropbox\project diploma\Diploma\LINQ-master\LINQ test\obj\x86\Debug\LINQ_test.ClosingSessionDialog.resources
 D:\My Files\Dropbox\project diploma\Diploma\LINQ-master\LINQ test\obj\x86\Debug\LINQ_test.DiscountRedactor.resources
+D:\My Files\Dropbox\project diploma\Diploma\LINQ-master\LINQ test\obj\x86\Debug\LINQ_test.Settings.resources
+D:\My Files\Dropbox\project diploma\Diploma\LINQ-master\LINQ test\obj\x86\Debug\LINQ_test.TablesManager.resources
 D:\My Files\Dropbox\project diploma\Diploma\LINQ-master\LINQ test\obj\x86\Debug\LINQ_test.TimezoneRedactor.resources
 D:\My Files\Dropbox\project diploma\Diploma\LINQ-master\LINQ test\obj\x86\Debug\LINQ_test.AddNewClient.resources
 D:\My Files\Dropbox\project diploma\Diploma\LINQ-master\LINQ test\obj\x86\Debug\LINQ_test.CellClickContent.resources
@@ -30,4 +32,4 @@ D:\My Files\Dropbox\project diploma\Diploma\LINQ-master\LINQ test\obj\x86\Debug\
 D:\My Files\Dropbox\project diploma\Diploma\LINQ-master\LINQ test\obj\x86\Debug\LINQ test.exe
 D:\My Files\Dropbox\project diploma\Diploma\LINQ-master\LINQ test\obj\x86\Debug\LINQ test.pdb
 D:\My Files\Dropbox\project diploma\Diploma\LINQ-master\LINQ test\obj\x86\Debug\LINQ test.csprojResolveAssemblyReference.cache
-D:\My Files\Dropbox\project diploma\Diploma\LINQ-master\LINQ test\obj\x86\Debug\LINQ_test.Settings.resources
+D:\My Files\Dropbox\project diploma\Diploma\LINQ-master\LINQ test\obj\x86\Debug\LINQ_test.CreateNewConsolePoint.resources

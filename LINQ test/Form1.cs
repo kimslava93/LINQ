@@ -180,5 +180,11 @@ namespace LINQ_test
             var dr = new DiscountRedactor();
             dr.ShowDialog();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            TablesManager tm = new TablesManager();
+            tm.ShowDialog();
+        }
     }
 }
