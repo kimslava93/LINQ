@@ -11,7 +11,7 @@ namespace LINQ_test
     {
         private dbDataContext db;
         private bool _opAdmins = false;
-        private bool op_operators = false;
+        private bool _opOperators = false;
 //        private List<object> test; 
         public Form1()
         {
@@ -81,9 +81,9 @@ namespace LINQ_test
 
         private void comboBox2_MouseClick(object sender, MouseEventArgs e)
         {
-            if (!op_operators)
+            if (!_opOperators)
             {
-                op_operators = true;
+                _opOperators = true;
                 var operators = (from o in db.GetTable<personal_info_t>()
                     where o.position == "operator"
                     select new
@@ -185,6 +185,12 @@ namespace LINQ_test
         {
             TablesManager tm = new TablesManager();
             tm.ShowDialog();
+        }
+
+        private void buttonBar_Click(object sender, EventArgs e)
+        {
+            AllBarItemsForm abif = new AllBarItemsForm(db);
+            abif.ShowDialog();
         }
     }
 }

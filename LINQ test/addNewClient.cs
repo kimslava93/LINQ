@@ -1,8 +1,11 @@
 ﻿using System;
 //using System.ComponentModel;
+using System.Collections.Generic;
 using System.Data.Linq;
 using System.Globalization;
 using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 //using System.Windows.Forms.VisualStyles;
 //using System.Threading;
@@ -74,60 +77,60 @@ namespace LINQ_test
             }
         }
 
-        private void combo_box_client_discount_card_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (!_opClients)
-            {
-                _opClients = true;
+//        private void combo_box_client_discount_card_MouseClick(object sender, MouseEventArgs e)
+//        {
+//            if (!_opClients)
+//            {
+//                _opClients = true;
+//
+//                var clientsList = (from c in _db.GetTable<client_info_t>()
+//                    orderby c.client_id ascending
+//                    select new
+//                    {
+//                        c.client_id
+//                    }).ToList();
+//                combo_box_client_discount_card.DataSource = clientsList;
+////                foreach (var cl in clientsList)
+////                {
+////                    combo_box_client_discount_card.Items.Add(cl.client_id);
+////                }
+//            }
+//        }
 
-                var clientsList = (from c in _db.GetTable<client_info_t>()
-                    orderby c.client_id ascending
-                    select new
-                    {
-                        c.client_id
-                    }).ToList();
-                
-                foreach (var cl in clientsList)
-                {
-                    combo_box_client_discount_card.Items.Add(cl.client_id);
-                }
-            }
-        }
+//        private void GetClientDataAddClientForm()
+//        {
+//            var clients = (from clientName in _db.GetTable<client_info_t>()
+//                from clientSavings in _db.GetTable<account_savings_t>()
+//                where
+//                    clientName.client_id == combo_box_client_discount_card.Text &&
+//                    clientSavings.client_id == combo_box_client_discount_card.Text
+//                select new
+//                {
+//                    clientName.name,
+//                    clientSavings.savings
+//                }).ToList();
+//
+//            client_name_textBox.Text = clients[0].name;
+//            clients_money_left_textBox.Text = clients[0].savings.ToString(CultureInfo.InvariantCulture);
+//        }
 
-        private void GetClientDataAddClientForm()
-        {
-            var clients = (from clientName in _db.GetTable<client_info_t>()
-                from clientSavings in _db.GetTable<account_savings_t>()
-                where
-                    clientName.client_id == combo_box_client_discount_card.Text &&
-                    clientSavings.client_id == combo_box_client_discount_card.Text
-                select new
-                {
-                    clientName.name,
-                    clientSavings.savings
-                }).ToList();
-
-            client_name_textBox.Text = clients[0].name;
-            clients_money_left_textBox.Text = clients[0].savings.ToString(CultureInfo.InvariantCulture);
-        }
-
-        private void combo_box_client_discount_card_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (combo_box_client_discount_card.Text != "0")
-            {
-                deposit_payment_groupBox.Enabled = false;
-                client_info_group_box.Enabled = true;
-                GetClientDataAddClientForm();
-            }
-            else
-            {
-                deposit_payment_groupBox.Enabled = true;
-                client_info_group_box.Enabled = false;
-
-                client_name_textBox.Text = "Usual client";
-                clients_money_left_textBox.Text = "0";
-            }
-        }
+//        private void combo_box_client_discount_card_SelectedIndexChanged(object sender, EventArgs e)
+//        {
+//            if (combo_box_client_discount_card.Text != "0")
+//            {
+//                deposit_payment_groupBox.Enabled = false;
+//                client_info_group_box.Enabled = true;
+//                GetClientDataAddClientForm();
+//            }
+//            else
+//            {
+//                deposit_payment_groupBox.Enabled = true;
+//                client_info_group_box.Enabled = false;
+//
+//                client_name_textBox.Text = "Usual client";
+//                clients_money_left_textBox.Text = "0";
+//            }
+//        }
 
         private void current_time_timer_Tick(object sender, EventArgs e)
         {
@@ -146,7 +149,7 @@ namespace LINQ_test
 
         private void paid_price_numeric_up_down_KeyUp(object sender, KeyEventArgs e)
         {
-            if (radioButtonPaidSum.Checked == true)
+            if (radioButtonPaidSum.Checked)
             {
                 if (paid_price_numeric_up_down.Value > paid_price_numeric_up_down.Maximum ||
                     paid_price_numeric_up_down.Value < 0)
@@ -255,7 +258,7 @@ namespace LINQ_test
                 var table = (from t in db.GetTable<tables_t>()
                              where t.playstation_id == table_numComboBox.Text
                              select t).Single();
-                if (combo_box_client_discount_card.Text == "0")
+                if (textBoxDiscounts.Text == "0")
                 {
                     TimeSpan paidTime =
                         TimeSpan.FromMinutes(
@@ -263,16 +266,20 @@ namespace LINQ_test
                     
                     Table<days_sessions_t> daysT = db.GetTable<days_sessions_t>();
                     var daysSessionT = new days_sessions_t();
-                   
+                    Table<clents_per_session_t> clientsPersessionTable = db.GetTable<clents_per_session_t>();
+                    clents_per_session_t clientsPerSessionT = new clents_per_session_t();
+    
                     daysSessionT.daily_id = _dailyId;
                     daysSessionT.client_num = (int) q + 1;
                     daysSessionT.start_game = new TimeSpan(currentTime.Hours, currentTime.Minutes, currentTime.Seconds);
                     daysSessionT.end_game = new TimeSpan(ct.Add(paidTime).Hours, ct.Add(paidTime).Minutes, ct.Add(paidTime).Seconds);
                     daysSessionT.playstation_id = table_numComboBox.Text;
-                    daysSessionT.client_id = combo_box_client_discount_card.Text;
+//                    daysSessionT.client_id = combo_box_client_discount_card.Text;
                     daysSessionT.session_state = "opened";
-
-
+                    //
+                    clientsPerSessionT.session_id = daysSessionT.session_id;
+                    clientsPerSessionT.client_id = textBoxDiscounts.Text;//------------------------------------------------------------------------------NEED OT FIXED
+                    //
                     daysSessionT.payed_sum = (double) (paid_price_numeric_up_down.Value);
                     daysSessionT.money_left = (double) (paid_price_numeric_up_down.Value);
                     daysSessionT.session_discount = 0;
@@ -358,7 +365,51 @@ namespace LINQ_test
 
         private void add_payment_button_Click(object sender, EventArgs e)
         {
+            //add money on selected card in case if not enough money to play
+        }
 
+        private void buttonAddCard_Click(object sender, EventArgs e)
+        {
+           AddClients();
+        }
+
+        private void AddClients()
+        {
+            AddDiscountCardToSession adcts = new AddDiscountCardToSession(_db);
+            adcts.ShowDialog();
+            if (IsRepeated(adcts.Result))
+            {
+                if (textBoxDiscounts.Text.Length <= 0 || textBoxDiscounts.Text == "0")
+                {
+                    textBoxDiscounts.Text = adcts.Result;
+                }
+                else
+                {
+                    textBoxDiscounts.Text += "; " + adcts.Result;
+                }
+            }
+        }
+
+        private bool IsRepeated(string cardId)
+        {
+            if (textBoxDiscounts.Text.Length <= 0)
+            {
+                return false;
+            }
+            List<string> splited = Regex.Split(textBoxDiscounts.Text, "; ").ToList();
+            var matchedResult = (from m in splited
+                where m == cardId
+                select m).SingleOrDefault();
+            if (matchedResult != null)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private void textBoxDiscounts_MouseClick(object sender, MouseEventArgs e)
+        {
+            AddClients();
         }
     }
 }

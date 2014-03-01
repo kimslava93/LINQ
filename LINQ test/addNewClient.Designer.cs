@@ -31,8 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddNewClient));
             this.client_info_group_box = new System.Windows.Forms.GroupBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.add_payment_button = new System.Windows.Forms.Button();
             this.add_money_on_card_numericUpDown = new System.Windows.Forms.NumericUpDown();
             this.clients_money_left_textBox = new System.Windows.Forms.TextBox();
@@ -44,7 +42,6 @@
             this.radioButtonPaidSum = new System.Windows.Forms.RadioButton();
             this.paid_price_numeric_up_down = new System.Windows.Forms.NumericUpDown();
             this.current_time_timer = new System.Windows.Forms.Timer(this.components);
-            this.combo_box_client_discount_card = new System.Windows.Forms.ComboBox();
             this.current_time_label = new System.Windows.Forms.Label();
             this.paid_sum_label = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -57,7 +54,8 @@
             this.table_numComboBox = new System.Windows.Forms.ComboBox();
             this.table_num_label = new System.Windows.Forms.Label();
             this.labelcurrentTime = new System.Windows.Forms.Label();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.textBoxDiscounts = new System.Windows.Forms.TextBox();
+            this.buttonAddCard = new System.Windows.Forms.Button();
             this.client_info_group_box.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.add_money_on_card_numericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.paid_price_numeric_up_down)).BeginInit();
@@ -68,8 +66,6 @@
             // 
             // client_info_group_box
             // 
-            this.client_info_group_box.Controls.Add(this.label6);
-            this.client_info_group_box.Controls.Add(this.label5);
             this.client_info_group_box.Controls.Add(this.add_payment_button);
             this.client_info_group_box.Controls.Add(this.add_money_on_card_numericUpDown);
             this.client_info_group_box.Controls.Add(this.clients_money_left_textBox);
@@ -85,28 +81,10 @@
             this.client_info_group_box.TabStop = false;
             this.client_info_group_box.Text = "Client info";
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 102);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(92, 13);
-            this.label6.TabIndex = 9;
-            this.label6.Text = "Total sum on card";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 77);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(72, 13);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "Added money";
-            // 
             // add_payment_button
             // 
             this.add_payment_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.add_payment_button.Location = new System.Drawing.Point(212, 120);
+            this.add_payment_button.Location = new System.Drawing.Point(212, 73);
             this.add_payment_button.Name = "add_payment_button";
             this.add_payment_button.Size = new System.Drawing.Size(27, 23);
             this.add_payment_button.TabIndex = 7;
@@ -117,7 +95,7 @@
             // add_money_on_card_numericUpDown
             // 
             this.add_money_on_card_numericUpDown.DecimalPlaces = 2;
-            this.add_money_on_card_numericUpDown.Location = new System.Drawing.Point(112, 123);
+            this.add_money_on_card_numericUpDown.Location = new System.Drawing.Point(112, 76);
             this.add_money_on_card_numericUpDown.Maximum = new decimal(new int[] {
             30000,
             0,
@@ -146,7 +124,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 125);
+            this.label4.Location = new System.Drawing.Point(6, 78);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(99, 13);
             this.label4.TabIndex = 2;
@@ -214,22 +192,11 @@
             this.current_time_timer.Interval = 1000;
             this.current_time_timer.Tick += new System.EventHandler(this.current_time_timer_Tick);
             // 
-            // combo_box_client_discount_card
-            // 
-            this.combo_box_client_discount_card.FormattingEnabled = true;
-            this.combo_box_client_discount_card.Location = new System.Drawing.Point(259, 36);
-            this.combo_box_client_discount_card.Name = "combo_box_client_discount_card";
-            this.combo_box_client_discount_card.Size = new System.Drawing.Size(57, 21);
-            this.combo_box_client_discount_card.TabIndex = 11;
-            this.combo_box_client_discount_card.Text = "0";
-            this.combo_box_client_discount_card.SelectedIndexChanged += new System.EventHandler(this.combo_box_client_discount_card_SelectedIndexChanged);
-            this.combo_box_client_discount_card.MouseClick += new System.Windows.Forms.MouseEventHandler(this.combo_box_client_discount_card_MouseClick);
-            // 
             // current_time_label
             // 
             this.current_time_label.AutoSize = true;
             this.current_time_label.Font = new System.Drawing.Font("Perfo", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.current_time_label.Location = new System.Drawing.Point(414, 9);
+            this.current_time_label.Location = new System.Drawing.Point(429, 7);
             this.current_time_label.Name = "current_time_label";
             this.current_time_label.Size = new System.Drawing.Size(147, 28);
             this.current_time_label.TabIndex = 12;
@@ -247,7 +214,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(167, 39);
+            this.label1.Location = new System.Drawing.Point(186, 18);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(78, 13);
             this.label1.TabIndex = 14;
@@ -256,7 +223,7 @@
             // add_client_button
             // 
             this.add_client_button.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.add_client_button.Location = new System.Drawing.Point(0, 253);
+            this.add_client_button.Location = new System.Drawing.Point(0, 237);
             this.add_client_button.Name = "add_client_button";
             this.add_client_button.Size = new System.Drawing.Size(638, 38);
             this.add_client_button.TabIndex = 13;
@@ -331,7 +298,7 @@
             // table_numComboBox
             // 
             this.table_numComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.table_numComboBox.Location = new System.Drawing.Point(75, 36);
+            this.table_numComboBox.Location = new System.Drawing.Point(76, 38);
             this.table_numComboBox.Name = "table_numComboBox";
             this.table_numComboBox.Size = new System.Drawing.Size(57, 21);
             this.table_numComboBox.TabIndex = 9;
@@ -340,7 +307,7 @@
             // table_num_label
             // 
             this.table_num_label.AutoSize = true;
-            this.table_num_label.Location = new System.Drawing.Point(25, 39);
+            this.table_num_label.Location = new System.Drawing.Point(26, 41);
             this.table_num_label.Name = "table_num_label";
             this.table_num_label.Size = new System.Drawing.Size(44, 13);
             this.table_num_label.TabIndex = 8;
@@ -350,28 +317,44 @@
             // 
             this.labelcurrentTime.AutoSize = true;
             this.labelcurrentTime.Font = new System.Drawing.Font("Perfo", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelcurrentTime.Location = new System.Drawing.Point(414, 41);
+            this.labelcurrentTime.Location = new System.Drawing.Point(429, 41);
             this.labelcurrentTime.Name = "labelcurrentTime";
             this.labelcurrentTime.Size = new System.Drawing.Size(147, 28);
             this.labelcurrentTime.TabIndex = 12;
             this.labelcurrentTime.Text = "Current time";
             // 
-            // progressBar1
+            // textBoxDiscounts
             // 
-            this.progressBar1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.progressBar1.Location = new System.Drawing.Point(0, 225);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(638, 28);
-            this.progressBar1.TabIndex = 16;
+            this.textBoxDiscounts.BackColor = System.Drawing.Color.White;
+            this.textBoxDiscounts.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.textBoxDiscounts.HideSelection = false;
+            this.textBoxDiscounts.Location = new System.Drawing.Point(270, 15);
+            this.textBoxDiscounts.Name = "textBoxDiscounts";
+            this.textBoxDiscounts.ReadOnly = true;
+            this.textBoxDiscounts.ShortcutsEnabled = false;
+            this.textBoxDiscounts.Size = new System.Drawing.Size(133, 20);
+            this.textBoxDiscounts.TabIndex = 17;
+            this.textBoxDiscounts.Text = "0";
+            this.textBoxDiscounts.MouseClick += new System.Windows.Forms.MouseEventHandler(this.textBoxDiscounts_MouseClick);
+            // 
+            // buttonAddCard
+            // 
+            this.buttonAddCard.Location = new System.Drawing.Point(295, 41);
+            this.buttonAddCard.Name = "buttonAddCard";
+            this.buttonAddCard.Size = new System.Drawing.Size(75, 23);
+            this.buttonAddCard.TabIndex = 18;
+            this.buttonAddCard.Text = "Add card";
+            this.buttonAddCard.UseVisualStyleBackColor = true;
+            this.buttonAddCard.Click += new System.EventHandler(this.buttonAddCard_Click);
             // 
             // AddNewClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(638, 291);
-            this.Controls.Add(this.progressBar1);
+            this.ClientSize = new System.Drawing.Size(638, 275);
+            this.Controls.Add(this.buttonAddCard);
+            this.Controls.Add(this.textBoxDiscounts);
             this.Controls.Add(this.client_info_group_box);
-            this.Controls.Add(this.combo_box_client_discount_card);
             this.Controls.Add(this.labelcurrentTime);
             this.Controls.Add(this.current_time_label);
             this.Controls.Add(this.label1);
@@ -403,8 +386,6 @@
         #endregion
 
         private System.Windows.Forms.GroupBox client_info_group_box;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button add_payment_button;
         private System.Windows.Forms.NumericUpDown add_money_on_card_numericUpDown;
         private System.Windows.Forms.TextBox clients_money_left_textBox;
@@ -416,7 +397,6 @@
         private System.Windows.Forms.RadioButton radioButtonPaidSum;
         private System.Windows.Forms.NumericUpDown paid_price_numeric_up_down;
         private System.Windows.Forms.Timer current_time_timer;
-        private System.Windows.Forms.ComboBox combo_box_client_discount_card;
         private System.Windows.Forms.Label current_time_label;
         private System.Windows.Forms.Label paid_sum_label;
         private System.Windows.Forms.Label label1;
@@ -430,6 +410,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDownHoursLeft;
         private dbDataContext db;
         private System.Windows.Forms.Label labelcurrentTime;
-        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.TextBox textBoxDiscounts;
+        private System.Windows.Forms.Button buttonAddCard;
     }
 }

@@ -29,17 +29,19 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.timerTick = new System.Windows.Forms.Timer(this.components);
             this.pictureBoxCloseSession = new System.Windows.Forms.PictureBox();
             this.labelCurrentTime = new System.Windows.Forms.Label();
             this.pictureBoxStop = new System.Windows.Forms.PictureBox();
             this.pictureBoxAdd = new System.Windows.Forms.PictureBox();
             this.dataGridViewDaysSession = new System.Windows.Forms.DataGridView();
+            this.pictureBoxSellItem = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCloseSession)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxStop)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAdd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDaysSession)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSellItem)).BeginInit();
             this.SuspendLayout();
             // 
             // timerTick
@@ -112,14 +114,14 @@
             this.dataGridViewDaysSession.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.dataGridViewDaysSession.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridViewDaysSession.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.LightGray;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.LightSkyBlue;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewDaysSession.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.LightSkyBlue;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewDaysSession.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewDaysSession.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.dataGridViewDaysSession.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridViewDaysSession.GridColor = System.Drawing.Color.Black;
@@ -131,11 +133,22 @@
             this.dataGridViewDaysSession.Size = new System.Drawing.Size(881, 372);
             this.dataGridViewDaysSession.TabIndex = 9;
             // 
+            // pictureBoxSellItem
+            // 
+            this.pictureBoxSellItem.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBoxSellItem.Location = new System.Drawing.Point(202, 12);
+            this.pictureBoxSellItem.Name = "pictureBoxSellItem";
+            this.pictureBoxSellItem.Size = new System.Drawing.Size(69, 66);
+            this.pictureBoxSellItem.TabIndex = 10;
+            this.pictureBoxSellItem.TabStop = false;
+            this.pictureBoxSellItem.Click += new System.EventHandler(this.pictureBoxSellItem_Click);
+            // 
             // CellClickContent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(881, 456);
+            this.Controls.Add(this.pictureBoxSellItem);
             this.Controls.Add(this.dataGridViewDaysSession);
             this.Controls.Add(this.pictureBoxCloseSession);
             this.Controls.Add(this.labelCurrentTime);
@@ -149,6 +162,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxStop)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAdd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDaysSession)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSellItem)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -162,5 +176,6 @@
         private System.Windows.Forms.PictureBox pictureBoxStop;
         private System.Windows.Forms.PictureBox pictureBoxAdd;
         private System.Windows.Forms.DataGridView dataGridViewDaysSession;
+        private System.Windows.Forms.PictureBox pictureBoxSellItem;
     }
 }

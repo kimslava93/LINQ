@@ -73,6 +73,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddDiscountCardToSession.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddDiscountCardToSession.Designer.cs">
+      <DependentUpon>AddDiscountCardToSession.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddItemToBar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddItemToBar.Designer.cs">
+      <DependentUpon>AddItemToBar.cs</DependentUpon>
+    </Compile>
     <Compile Include="addNewClient.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -91,6 +103,13 @@
     <Compile Include="AddRemoveFromDiscountForm.Designer.cs">
       <DependentUpon>AddRemoveFromDiscountForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="AllBarItemsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllBarItemsForm.Designer.cs">
+      <DependentUpon>AllBarItemsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MyClasses\ClientsPerSessionMyClass.cs" />
     <Compile Include="ClosingSessionDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -173,11 +192,20 @@
     <Compile Include="TimezoneRedactor.Designer.cs">
       <DependentUpon>TimezoneRedactor.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AddDiscountCardToSession.resx">
+      <DependentUpon>AddDiscountCardToSession.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddItemToBar.resx">
+      <DependentUpon>AddItemToBar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AddNewDiscountForm.resx">
       <DependentUpon>AddNewDiscountForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AddRemoveFromDiscountForm.resx">
       <DependentUpon>AddRemoveFromDiscountForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AllBarItemsForm.resx">
+      <DependentUpon>AllBarItemsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ChangeCost.resx">
       <DependentUpon>ChangeCost.cs</DependentUpon>

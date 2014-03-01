@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 //using System.Windows.Forms.VisualStyles;
+using LINQ_test.MyClasses;
 
 
 namespace LINQ_test
@@ -21,6 +22,7 @@ namespace LINQ_test
         private readonly int _dailyId;
         private readonly Options _opt;
         private List<DaySessionClass> _daySessionList;
+        private List<ClientsPerSessionMyClass> clientsPerSession;
         public CellClickContent(List<string> dataList)
         {
             _dailyId = int.Parse(dataList[0]);
@@ -42,6 +44,13 @@ namespace LINQ_test
         {
             lock (_db)
             {
+                clientsPerSession = (from c in _db.GetTable<clents_per_session_t>()
+                    select new ClientsPerSessionMyClass
+                    {
+                        ClientId = c.client_id,
+                        PaidSum = (double)c.payed_sum,
+                        SessionId = (int)c.session_id
+                    }).ToList();
                 _daySessionList = (from days in _db.GetTable<days_sessions_t>()
                     where days.daily_id == _dailyId
                     where days.session_state == "opened"
@@ -52,7 +61,8 @@ namespace LINQ_test
                         PlaystationId = days.playstation_id,
                         StartGame = (TimeSpan) days.start_game,
                         EndGame = (TimeSpan) days.end_game,
-                        ClientId = days.client_id,
+                        ClientId = ListToString(days.session_id),
+
 
                         MoneyLeft = days.money_left,
                         SessionDiscount = (double) days.session_discount,
@@ -60,6 +70,22 @@ namespace LINQ_test
                     }).ToList<DaySessionClass>();
                 dataGridViewDaysSession.Invoke(new Action(() => dataGridViewDaysSession.DataSource = _daySessionList));
             }
+        }
+
+        private string ListToString(int sessionId)
+        {
+            string result = "";
+            var clientsInSession = (from c in clientsPerSession
+                where c.SessionId == sessionId
+                select c.ClientId).ToList();
+            if (clientsInSession.Count > 0)
+            {
+                foreach (string s in clientsInSession)
+                {
+                    result = s + " ";
+                }
+            }
+            return result;
         }
 
         private void timerTick_Tick(object sender, EventArgs e)
@@ -266,7 +292,7 @@ namespace LINQ_test
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Can't find image \"close_pressed.png\"! ");
+                MessageBox.Show("Can't find image \"close.png\"! ");
             }
         }
 
@@ -310,8 +336,13 @@ namespace LINQ_test
             }
             catch (Exception)
             {
-                MessageBox.Show("picture of add canot be found!");
+                MessageBox.Show("Picture of add canot be found!");
             }
+        }
+
+        private void pictureBoxSellItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

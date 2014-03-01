@@ -33,3 +33,6 @@ D:\My Files\Dropbox\project diploma\Diploma\LINQ-master\LINQ test\obj\x86\Debug\
 D:\My Files\Dropbox\project diploma\Diploma\LINQ-master\LINQ test\obj\x86\Debug\LINQ test.pdb
 D:\My Files\Dropbox\project diploma\Diploma\LINQ-master\LINQ test\obj\x86\Debug\LINQ test.csprojResolveAssemblyReference.cache
 D:\My Files\Dropbox\project diploma\Diploma\LINQ-master\LINQ test\obj\x86\Debug\LINQ_test.CreateNewConsolePoint.resources
+D:\My Files\Dropbox\project diploma\Diploma\LINQ-master\LINQ test\obj\x86\Debug\LINQ_test.AllBarItemsForm.resources
+D:\My Files\Dropbox\project diploma\Diploma\LINQ-master\LINQ test\obj\x86\Debug\LINQ_test.AddItemToBar.resources
+D:\My Files\Dropbox\project diploma\Diploma\LINQ-master\LINQ test\obj\x86\Debug\LINQ_test.AddDiscountCardToSession.resources
